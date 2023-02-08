@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "827056549285",
+    "project_id": "manas-kriti-appd",
+    "storage_bucket": "manas-kriti-appd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:827056549285:android:561906cb263c3cec948c4c",
+        "android_client_info": {
+          "package_name": "com.example.campus_catalogue"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "827056549285-0rstkm81o60tnjlv9vp4dg9lej0r5vqi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.campus_catalogue",
+            "certificate_hash": "d18fd6f99a8659e99ec2af7f65b41a9accc74e68"
+          }
+        },
+        {
+          "client_id": "827056549285-ed41ea5abfsitrlvqjoer1qkbvcov0lv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwuL2C6M6OgOwYc-_Ph8q0gnqqwUkuE3c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "827056549285-ed41ea5abfsitrlvqjoer1qkbvcov0lv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
