@@ -35,6 +35,9 @@ migrate_working_dir/
 # Symbolication related
 app.*.symbols
 
+#Dotenv
+.env
+
 # Obfuscation related
 app.*.map.json
 
