@@ -1,3 +1,4 @@
+import 'package:campus_catalogue/models/shopModel.dart';
 import 'package:flutter/material.dart';
 import 'package:upi_india/upi_india.dart';
 
@@ -20,7 +21,10 @@ class _UpiScreenState extends State<UpiScreen> {
     fontWeight: FontWeight.w400,
     fontSize: 14,
   );
-
+  // <---- Test ---->
+  ShopModel shop = ShopModel(upi_id: "@example", shop_name: 'Manas');
+  double amount = 100.0;
+  // <---- Test ---->
   @override
   void initState() {
     _upiIndia.getAllUpiApps(mandatoryTransactionId: false).then((value) {
@@ -33,14 +37,15 @@ class _UpiScreenState extends State<UpiScreen> {
     super.initState();
   }
 
-  Future<UpiResponse> initiateTransaction(UpiApp app) async {
+  Future<UpiResponse> initiateTransaction(
+      UpiApp app, ShopModel shop, double amount) async {
     return _upiIndia.startTransaction(
       app: app,
-      receiverUpiId: "@example",
-      receiverName: '@Manas',
+      receiverUpiId: shop.upi_id,
+      receiverName: shop.shop_name,
       transactionRefId: 'TestingUpiIndiaPlugin',
       transactionNote: 'Not actual. Just an example.',
-      amount: 1.00,
+      amount: amount,
     );
   }
 
@@ -63,7 +68,7 @@ class _UpiScreenState extends State<UpiScreen> {
             children: apps!.map<Widget>((UpiApp app) {
               return GestureDetector(
                 onTap: () {
-                  _transaction = initiateTransaction(app);
+                  _transaction = initiateTransaction(app, shop, amount);
                   setState(() {});
                 },
                 child: Container(
