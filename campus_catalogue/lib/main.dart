@@ -1,4 +1,5 @@
 import 'package:campus_catalogue/payment_gateway.dart';
+import 'package:campus_catalogue/screens/splash_screen.dart';
 import 'package:campus_catalogue/upi_india.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: UpiScreen(),
+      home: SplashScreen(),
     );
   }
 }
