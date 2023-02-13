@@ -1,4 +1,5 @@
 import 'package:campus_catalogue/payment_gateway.dart';
+import 'package:campus_catalogue/screens/onboarding_screen.dart';
 import 'package:campus_catalogue/screens/splash_screen.dart';
 import 'package:campus_catalogue/upi_india.dart';
 import 'package:flutter/material.dart';
@@ -20,11 +21,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: SplashScreen(),
+      home: const SplashScreen(),
     );
   }
 }
