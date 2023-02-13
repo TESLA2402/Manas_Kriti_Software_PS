@@ -43,6 +43,7 @@ dependencies:
   flutter_dotenv: ^5.0.2
   http: ^0.13.5
   upi_india: ^3.0.1
+  google_fonts: ^4.0.3
 
 dev_dependencies:
   flutter_test:
@@ -70,6 +71,7 @@ flutter:
   assets:
     - assets/.env
     - assets/splash_screen.png
+    - assets/onboarding_image.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

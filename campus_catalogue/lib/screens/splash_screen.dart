@@ -1,8 +1,7 @@
 import 'dart:async';
-
-import 'package:campus_catalogue/upi_india.dart';
+import 'package:campus_catalogue/constants/typography.dart';
+import 'package:campus_catalogue/screens/onboarding_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_stripe/flutter_stripe.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -15,9 +14,9 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 15), () {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => UpiScreen()));
+    Timer(const Duration(seconds: 2), () {
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => const WelcomeScreen()));
     });
   }
 
@@ -36,14 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
               height: 100,
               width: 100,
             ),
-            const Text(
-              "Xplore IITG",
-              style: TextStyle(
-                  fontFamily: 'Fira Sans',
-                  fontWeight: FontWeight.w400,
-                  color: Colors.white,
-                  fontSize: 20),
-            )
+            Text("Xplore IITG", style: AppTypography.textMd)
           ],
         ),
       ),
