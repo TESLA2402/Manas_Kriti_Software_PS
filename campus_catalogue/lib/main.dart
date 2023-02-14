@@ -1,3 +1,5 @@
+import 'package:campus_catalogue/data_entry.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:campus_catalogue/payment_gateway.dart';
 import 'package:campus_catalogue/screens/onboarding_screen.dart';
 import 'package:campus_catalogue/screens/splash_screen.dart';
@@ -12,7 +14,7 @@ void main() async {
       "pk_test_51MZHMhSF3jyzuIge766JvDB1tCbBuUk5F1NjHLW66gy4aPeZZxWe6q3CVTmOO1m50N5sEdSfrj7Vrcr5O2EZs4tA00QvS9CKQ6";
 
   await dotenv.load(fileName: "assets/.env");
-
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -26,7 +28,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const SplashScreen(),
+      routes: {
+        '/' :(context) => const AddShop(),
+        '/addshop': (context) => const AddShop(),
+        '/additem': (context) => const AddItem(),
+      },
     );
   }
 }
