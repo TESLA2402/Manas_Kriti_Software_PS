@@ -1,3 +1,5 @@
+import 'package:campus_catalogue/add_item.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:campus_catalogue/payment_gateway.dart';
 import 'package:campus_catalogue/screens/onboarding_screen.dart';
 import 'package:campus_catalogue/screens/splash_screen.dart';
@@ -5,6 +7,8 @@ import 'package:campus_catalogue/upi_india.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:campus_catalogue/add_shop.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,8 +16,9 @@ void main() async {
       "pk_test_51MZHMhSF3jyzuIge766JvDB1tCbBuUk5F1NjHLW66gy4aPeZZxWe6q3CVTmOO1m50N5sEdSfrj7Vrcr5O2EZs4tA00QvS9CKQ6";
 
   await dotenv.load(fileName: "assets/.env");
-
-  runApp(MyApp());
+  await Firebase.initializeApp();
+  fetch_categories();
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -26,7 +31,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const SplashScreen(),
+      routes: {
+        '/': (context) => const AddShop(),
+        '/addshop': (context) => const AddShop(),
+        '/additem': (context) => const AddItem(),
+      },
     );
   }
 }

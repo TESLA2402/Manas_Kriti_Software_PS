@@ -58,7 +58,7 @@ class _PaymentGatewayState extends State<PaymentGateway> {
       await Stripe.instance.presentPaymentSheet().then((value) {
         showDialog(
             context: context,
-            builder: (_) => const AlertDialog(
+            builder: (_) => AlertDialog(
                   content: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -79,7 +79,7 @@ class _PaymentGatewayState extends State<PaymentGateway> {
       });
     } on StripeException catch (e) {
       print('Error is:---> $e');
-      const AlertDialog(
+      AlertDialog(
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
