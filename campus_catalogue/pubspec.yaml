@@ -44,6 +44,7 @@ dependencies:
   http: ^0.13.5
   upi_india: ^3.0.1
   google_fonts: ^4.0.3
+  image_picker: ^0.8.6+1
 
 dev_dependencies:
   flutter_test:
