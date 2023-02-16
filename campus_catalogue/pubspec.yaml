@@ -47,6 +47,7 @@ dependencies:
   image_picker: ^0.8.6+1
   firebase_core: ^2.5.0
   pinput: ^2.2.30
+  dropdown_button2: ^1.9.2
 
 dev_dependencies:
   flutter_test:
