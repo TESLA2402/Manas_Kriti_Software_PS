@@ -43,7 +43,7 @@ class _BuyerDetailsState extends State<BuyerDetails> {
           Container(
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: Color(0xFFFEC490)),
+                  border: Border.all(width: 0, color: Color(0xFFFEC490)),
                   color: AppColors.signIn),
               padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
               child: Column(
