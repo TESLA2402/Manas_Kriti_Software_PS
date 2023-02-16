@@ -1,6 +1,7 @@
 import 'package:campus_catalogue/constants/typography.dart';
 import 'package:campus_catalogue/screens/home_screen.dart';
 import 'package:campus_catalogue/screens/sign_in.dart';
+import 'package:campus_catalogue/screens/userType_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
@@ -20,7 +21,7 @@ class _VerifyOtpState extends State<VerifyOtp> {
       width: 50,
       height: 50,
       textStyle: const TextStyle(
-          fontSize: 20, color: Color(0xFFFFF2E0), fontWeight: FontWeight.w600),
+          fontSize: 20, color: Colors.black, fontWeight: FontWeight.w600),
       decoration: BoxDecoration(
           border: Border.all(color: const Color(0xFFFC8019)),
           borderRadius: BorderRadius.circular(6),
@@ -30,7 +31,7 @@ class _VerifyOtpState extends State<VerifyOtp> {
     return Scaffold(
       backgroundColor: Color(0xFFFFFEF6),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 64, 20, 30),
+        padding: const EdgeInsets.fromLTRB(20, 60, 20, 36),
         child: Column(
           children: [
             Align(
@@ -92,7 +93,7 @@ class _VerifyOtpState extends State<VerifyOtp> {
                   await auth.signInWithCredential(credential);
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const HomeScreen()),
+                    MaterialPageRoute(builder: (context) => const UserType()),
                   );
                 } catch (e) {
                   print("wrong OTP");

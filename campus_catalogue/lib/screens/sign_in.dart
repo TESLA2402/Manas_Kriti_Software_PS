@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
   static String verify = "";
+  static String phoneNumber = "";
   @override
   _SignInState createState() => _SignInState();
 }
@@ -21,7 +22,7 @@ class _SignInState extends State<SignIn> {
     return Scaffold(
       backgroundColor: Color(0xFFFFFEF6),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 144, 20, 0),
+        padding: const EdgeInsets.fromLTRB(20, 140, 20, 36),
         child: Column(children: [
           Text(
             "Sign In",
@@ -58,6 +59,7 @@ class _SignInState extends State<SignIn> {
                   textAlign: TextAlign.start,
                   onChanged: (value) {
                     phone = value;
+                    SignIn.phoneNumber = value;
                   },
                   decoration: InputDecoration(
                       fillColor: AppColors.backgroundYellow,
