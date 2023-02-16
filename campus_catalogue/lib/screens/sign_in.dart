@@ -21,7 +21,7 @@ class _SignInState extends State<SignIn> {
     return Scaffold(
       backgroundColor: Color(0xFFFFFEF6),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 144, 20, 0),
+        padding: const EdgeInsets.fromLTRB(20, 144, 20, 36),
         child: Column(children: [
           Text(
             "Sign In",
