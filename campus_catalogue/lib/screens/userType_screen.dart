@@ -1,5 +1,6 @@
 import 'package:campus_catalogue/constants/typography.dart';
 import 'package:campus_catalogue/screens/userInformation/buyer_details.dart';
+import 'package:campus_catalogue/screens/userInformation/seller_details.dart';
 import 'package:flutter/material.dart';
 
 class UserType extends StatefulWidget {
@@ -78,39 +79,47 @@ class _UserTypeState extends State<UserType> {
           const SizedBox(
             height: 10,
           ),
-          Container(
-            padding: const EdgeInsets.fromLTRB(24, 21, 10, 29),
-            decoration: BoxDecoration(
-              color: const Color(0xFFFFF2E0),
-              borderRadius: BorderRadius.circular(6),
-              border: Border.all(color: const Color(0xFFFC8019)),
-            ),
-            child: Row(children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    "Seller",
-                    style: AppTypography.textMd
-                        .copyWith(fontWeight: FontWeight.w500),
-                  ),
-                  const SizedBox(
-                    height: 4,
-                  ),
-                  Text(
-                    "Join as a seller, if you \nwant to sell any item \nor provide any \nservice.",
-                    style: AppTypography.textSm.copyWith(fontSize: 14),
-                  )
-                ],
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const SellerDetails()),
+              );
+            },
+            child: Container(
+              padding: const EdgeInsets.fromLTRB(24, 21, 10, 29),
+              decoration: BoxDecoration(
+                color: const Color(0xFFFFF2E0),
+                borderRadius: BorderRadius.circular(6),
+                border: Border.all(color: const Color(0xFFFC8019)),
               ),
-              Spacer(),
-              Image.asset(
-                "assets/images/seller_type.png",
-                height: 130,
-                width: 130,
-              )
-            ]),
+              child: Row(children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      "Seller",
+                      style: AppTypography.textMd
+                          .copyWith(fontWeight: FontWeight.w500),
+                    ),
+                    const SizedBox(
+                      height: 4,
+                    ),
+                    Text(
+                      "Join as a seller, if you \nwant to sell any item \nor provide any \nservice.",
+                      style: AppTypography.textSm.copyWith(fontSize: 14),
+                    )
+                  ],
+                ),
+                Spacer(),
+                Image.asset(
+                  "assets/images/seller_type.png",
+                  height: 130,
+                  width: 130,
+                )
+              ]),
+            ),
           ),
           const Spacer(),
           GestureDetector(

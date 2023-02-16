@@ -1,5 +1,6 @@
 import 'package:campus_catalogue/add_item.dart';
 import 'package:campus_catalogue/screens/userInformation/buyer_details.dart';
+import 'package:campus_catalogue/screens/userInformation/seller_details.dart';
 import 'package:campus_catalogue/screens/userType_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:campus_catalogue/screens/splash_screen.dart';
