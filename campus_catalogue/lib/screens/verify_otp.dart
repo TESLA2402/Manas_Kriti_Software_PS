@@ -31,7 +31,7 @@ class _VerifyOtpState extends State<VerifyOtp> {
     return Scaffold(
       backgroundColor: Color(0xFFFFFEF6),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 64, 20, 36),
+        padding: const EdgeInsets.fromLTRB(20, 60, 20, 36),
         child: Column(
           children: [
             Align(
