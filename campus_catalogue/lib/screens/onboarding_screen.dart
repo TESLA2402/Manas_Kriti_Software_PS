@@ -1,3 +1,4 @@
+import 'package:campus_catalogue/add_shop.dart';
 import 'package:campus_catalogue/constants/colors.dart';
 import 'package:campus_catalogue/constants/typography.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +44,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 style: AppTypography.textMd.copyWith(fontSize: 12)),
             const Spacer(),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                edit_shop(context: context);
+              },
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [

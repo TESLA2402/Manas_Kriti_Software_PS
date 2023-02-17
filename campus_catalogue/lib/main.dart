@@ -9,7 +9,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:campus_catalogue/add_shop.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Stripe.publishableKey =
@@ -17,6 +16,7 @@ void main() async {
 
   await dotenv.load(fileName: "assets/.env");
   await Firebase.initializeApp();
+
   fetch_categories();
   runApp(const MyApp());
 }
@@ -25,6 +25,17 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
+    List<Map<dynamic,dynamic>> t = [{
+                'name':'abc',
+                'price':20,
+              },
+              {
+                'name':'def'
+              },
+              {
+                'name':'zzzasdbsdfbfsg'
+              },
+              ];
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
@@ -32,9 +43,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       routes: {
-        '/': (context) => const AddShop(),
-        '/addshop': (context) => const AddShop(),
-        '/additem': (context) => const AddItem(),
+        '/': (context) => WelcomeScreen(),
+        // '/addshop': (context) => const EditShop(shop: {},),
+        '/additem': (context) => EditMenu(menu: t,),
       },
     );
   }
