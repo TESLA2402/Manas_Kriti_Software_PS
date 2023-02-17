@@ -12,7 +12,7 @@ class DatabaseService {
     await _db.collection("shop").add(employeeData.toMap());
   }
 
-  Future<List> retrieveEmployees() async {
+  Future<List> retrieveBuyer() async {
     QuerySnapshot<Map<String, dynamic>> snapshot =
         await _db.collection("Buyer").get();
     return snapshot.docs
