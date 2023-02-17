@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Buyer {
   final String user_id;
   final String name;
@@ -32,4 +34,12 @@ class Buyer {
         phone = buyerMap["phone"],
         address = buyerMap["address"],
         user_id = buyerMap["user_id"];
+
+  Buyer.fromDocumentSnapshot(DocumentSnapshot<Map<String, dynamic>> doc)
+      : user_id = doc.data()!["user_id"],
+        name = doc.data()!["name"],
+        userName = doc.data()!['user_name'],
+        email = doc.data()!['email'],
+        phone = doc.data()!['phone'],
+        address = doc.data()!['address'];
 }

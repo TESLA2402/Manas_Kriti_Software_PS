@@ -97,7 +97,7 @@ class _BuyerDetailsState extends State<BuyerDetails> {
                     email: _emailController.text,
                     phone: _phoneController.text,
                     address: _addressController.text);
-                await service.addEmployee(buyer);
+                await service.addBuyer(buyer);
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const HomeScreen()),
