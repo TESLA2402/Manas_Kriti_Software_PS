@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:campus_catalogue/constants/colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -8,6 +9,13 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 
 List<String> all_categories = [];
+check_null(s) {
+  if (s == Null) {
+    return '';
+  } else {
+    return s;
+  }
+}
 
 void fetch_categories() async {
   FirebaseFirestore db = FirebaseFirestore.instance;
@@ -19,46 +27,56 @@ void fetch_categories() async {
 
 class CategoryCard extends StatelessWidget {
   final String category;
-  final Function delete_card;
+  final Function shift_card;
+  final bool is_selected;
   const CategoryCard(
-      {super.key, required this.category, required this.delete_card});
+      {super.key,
+      required this.category,
+      required this.shift_card,
+      required this.is_selected});
 
   @override
   Widget build(BuildContext context) {
     return Card(
+        color: is_selected ? Colors.green : AppColors.backgroundOrange,
         child: Row(
-      children: [
-        Text(category),
-        GestureDetector(
-          child: Icon(Icons.disabled_by_default),
-          onTap: () {
-            delete_card(category);
-          },
-        )
-      ],
-      mainAxisSize: MainAxisSize.min,
-    ));
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(category),
+            GestureDetector(
+              child: Icon(
+                  is_selected ? Icons.do_not_disturb_on_outlined : Icons.add),
+              onTap: () {
+                shift_card(category);
+              },
+            )
+          ],
+        ));
   }
 }
 
-class AddItem extends StatefulWidget {
-  const AddItem({super.key});
+class ItemEditor extends StatefulWidget {
+  Map<String, dynamic> item;
+  ItemEditor({super.key, required this.item});
 
   @override
-  State<AddItem> createState() => _AddItemState();
+  State<ItemEditor> createState() => _ItemEditorState();
 }
 
-class _AddItemState extends State<AddItem> {
-  bool non_vegetarian = false;
+class _ItemEditorState extends State<ItemEditor> {
+  // bool non_vegetarian = false;
   XFile? sampleImage;
 
-  Set<String> selected_categories = {};
-// Set<String> unselected_categories = {};
-  Set<String> unselected_categories = all_categories.toSet();
-
-  void delete_card(String category) {
-    selected_categories.remove(category);
-    unselected_categories.add(category);
+  void shift_card(String category) {
+    if (widget.item['categories'].contains(category)) {
+      widget.item['categories'].remove(category);
+      widget.item['unselected_categories'].add(category);
+    } else {
+      widget.item['categories'].add(category);
+      widget.item['unselected_categories'].remove(category);
+    }
+    print(widget.item['categories']);
+    print(widget.item['unselected_categories']);
     setState(() {});
   }
 
@@ -81,89 +99,154 @@ class _AddItemState extends State<AddItem> {
         height: 100,
       );
     }
+    if (!widget.item.containsKey('name')) {
+      widget.item['name'] = '';
+    }
+    if (!widget.item.containsKey('description')) {
+      widget.item['description'] = '';
+    }
+    if (!widget.item.containsKey('price')) {
+      widget.item['price'] = 0.0;
+    }
+    if (!widget.item.containsKey('veg')) widget.item['veg'] = false;
+
+    if (!widget.item.containsKey('categories')) {
+      widget.item['categories'] = [];
+    }
+    if (!widget.item.containsKey('unselected_categories')) {
+      widget.item.addAll({'unselected_categories': all_categories.toList()});
+    }
+    return ExpansionTile(
+      title: Text(widget.item['name'] == '' ? "New Item" : widget.item['name']),
+      children: [
+        x,
+        SizedBox(
+          child: TextFormField(
+              onChanged: (name) {
+                setState(() {
+                  widget.item['name'] = name;
+                });
+              },
+              initialValue: widget.item['name'],
+              // controller: _name,
+              decoration: const InputDecoration(
+                icon: Icon(Icons.local_pizza),
+                labelText: 'Item Name',
+              )),
+        ),
+        SizedBox(
+          child: TextFormField(
+              onChanged: (price) {
+                setState(() {
+                  widget.item['price'] = double.parse(price);
+                });
+              },
+              initialValue: widget.item['price'] == 0
+                  ? ''
+                  : widget.item['price'].toString(),
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              keyboardType: TextInputType.number,
+              decoration: const InputDecoration(
+                icon: Icon(Icons.money),
+                labelText: 'Price',
+              )),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            const Icon(Icons.local_pizza),
+            const SizedBox(
+              width: 16,
+            ),
+            const Text('Vegetarian'),
+            Checkbox(
+              value: widget.item['veg'],
+              onChanged: (bool? val) {
+                setState(() {
+                  widget.item['veg'] = val;
+                });
+              },
+            ),
+          ],
+        ),
+        SizedBox(
+          child: TextFormField(
+              onChanged: (description) {
+                setState(() {
+                  widget.item['description'] = description;
+                });
+              },
+              initialValue: widget.item['description'],
+              maxLines: 2,
+              decoration: const InputDecoration(
+                icon: Icon(Icons.notes),
+                labelText: 'Description',
+              )),
+        ),
+        const Text('Tags'),
+        const Text(
+            'Tags help us show your menu items to relevant customers(improve this wording)'),
+        Card(
+          child: Wrap(
+              children:
+                  widget.item['categories'].toList().map<Widget>((category) {
+            return CategoryCard(
+              category: category,
+              shift_card: shift_card,
+              is_selected: true,
+            );
+          }).toList()),
+        ),
+        Wrap(
+            children: widget.item['unselected_categories']
+                .toList()
+                .map<Widget>((category) {
+          return CategoryCard(
+            category: category,
+            shift_card: shift_card,
+            is_selected: false,
+          );
+        }).toList()),
+      ],
+    );
+  }
+}
+
+class EditMenu extends StatefulWidget {
+  final List<dynamic> menu;
+  EditMenu({super.key, required this.menu});
+
+  @override
+  State<EditMenu> createState() => _EditMenuState();
+}
+
+class _EditMenuState extends State<EditMenu> {
+  @override
+  Widget build(BuildContext context) {
+    print(widget.menu.runtimeType);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add food items sold'),
-        
+        title: Text('Menu'),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            x,
-            SizedBox(
-              child: TextFormField(
-                  decoration: const InputDecoration(
-                icon: Icon(Icons.local_pizza),
-                labelText: 'Item Name',
-              )),
-            ),
-            SizedBox(
-              child: TextFormField(
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    icon: Icon(Icons.money),
-                    labelText: 'Price',
-                  )),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const Icon(Icons.local_pizza),
-                const SizedBox(
-                  width: 16,
-                ),
-                const Text('Non Vegetarian'),
-                Checkbox(
-                  value: non_vegetarian,
-                  onChanged: (bool? val) {
-                    setState(() {
-                      non_vegetarian = true;
-                    });
-                  },
-                ),
-              ],
-            ),
-            SizedBox(
-              child: TextFormField(
-                  maxLines: 2,
-                  decoration: const InputDecoration(
-                    icon: Icon(Icons.notes),
-                    labelText: 'Description',
-                  )),
-            ),
-            Text('Tags'),
-            Text(
-                'Tags help us show your menu items to relevant customers(improve this wording)'),
-            Wrap(
-                // runAlignment: ,
-                children: selected_categories.toList().map((category) {
-              return CategoryCard(category: category, delete_card: delete_card);
-            }).toList()),
-            DropdownButton<String>(
-              hint: Text((unselected_categories.isEmpty)
-                  ? 'All chosen'
-                  : 'Add category'),
-              icon: const Icon(Icons.arrow_downward),
-              elevation: 16,
-              onChanged: (String? value) {
-                selected_categories.add(value!);
-                unselected_categories.remove(value);
-                refresh();
-              },
-              items: unselected_categories
-                  .toList()
-                  .map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
+            Column(
+              children: widget.menu.toList().map((item) {
+                return ItemEditor(item: item);
               }).toList(),
             ),
+            GestureDetector(
+                onTap: () {
+                  widget.menu.add(Map<String, dynamic>());
+                  setState(() {});
+                },
+                child: Text('+Add another Item')),
             ElevatedButton(
-              child: const Text('Done'),
-              onPressed: () => {},
-            )
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text("Done")),
           ],
         ),
       ),
@@ -171,3 +254,12 @@ class _AddItemState extends State<AddItem> {
   }
 }
 
+edit_menu({required List menu, required BuildContext context}) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+        builder: (context) => EditMenu(
+              menu: menu,
+            )),
+  );
+}

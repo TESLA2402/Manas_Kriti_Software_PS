@@ -1,3 +1,4 @@
+import 'package:campus_catalogue/add_shop.dart';
 import 'package:campus_catalogue/constants/colors.dart';
 import 'package:campus_catalogue/constants/typography.dart';
 import 'package:campus_catalogue/screens/sign_in.dart';
