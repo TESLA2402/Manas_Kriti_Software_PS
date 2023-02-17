@@ -4,6 +4,7 @@ import 'package:campus_catalogue/screens/userInformation/seller_details.dart';
 import 'package:campus_catalogue/screens/userType_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:campus_catalogue/screens/splash_screen.dart';
+import 'package:campus_catalogue/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       routes: {
-        '/': (context) => const SplashScreen(),
+        '/': (context) => const HomeScreen(),
         '/addshop': (context) => const AddShop(),
         '/additem': (context) => const AddItem(),
       },
