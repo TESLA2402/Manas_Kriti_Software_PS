@@ -14,7 +14,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 2), () {
+    Timer(const Duration(seconds: 3), () {
       Navigator.pushReplacement(context,
           MaterialPageRoute(builder: (context) => const WelcomeScreen()));
     });
@@ -23,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.orange,
+      backgroundColor: Color(0xFFFFFEF6),
       resizeToAvoidBottomInset: false,
       body: Center(
         child: Column(
@@ -32,10 +32,13 @@ class _SplashScreenState extends State<SplashScreen> {
           children: [
             Image.asset(
               "assets/splash_screen.png",
-              height: 100,
-              width: 100,
+              height: 160,
+              width: 160,
             ),
-            Text("Xplore IITG", style: AppTypography.textMd)
+            Text("Explore IITG",
+                style: AppTypography.textMd.copyWith(
+                    color: const Color(0xFFFC8019),
+                    fontWeight: FontWeight.w700))
           ],
         ),
       ),
