@@ -1,4 +1,5 @@
 import 'package:campus_catalogue/add_item.dart';
+import 'package:campus_catalogue/screens/onboarding_screen.dart';
 import 'package:campus_catalogue/screens/userInformation/buyer_details.dart';
 import 'package:campus_catalogue/screens/userInformation/seller_details.dart';
 import 'package:campus_catalogue/screens/userType_screen.dart';
@@ -25,6 +26,14 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
+    List<Map<dynamic, dynamic>> t = [
+      {
+        'name': 'abc',
+        'price': 20,
+      },
+      {'name': 'def'},
+      {'name': 'zzzasdbsdfbfsg'},
+    ];
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
@@ -32,9 +41,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       routes: {
-        '/': (context) => const HomeScreen(),
-        '/addshop': (context) => const AddShop(),
-        '/additem': (context) => const AddItem(),
+        '/': (context) => const SplashScreen(),
       },
     );
   }

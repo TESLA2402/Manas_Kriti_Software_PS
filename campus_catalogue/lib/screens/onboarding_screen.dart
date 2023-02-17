@@ -1,3 +1,4 @@
+import 'package:campus_catalogue/add_shop.dart';
 import 'package:campus_catalogue/constants/colors.dart';
 import 'package:campus_catalogue/constants/typography.dart';
 import 'package:campus_catalogue/screens/sign_in.dart';
@@ -15,7 +16,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: const EdgeInsets.fromLTRB(30, 144, 30, 30),
+        padding: const EdgeInsets.fromLTRB(30, 144, 30, 36),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
