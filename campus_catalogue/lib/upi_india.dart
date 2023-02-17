@@ -22,7 +22,7 @@ class _UpiScreenState extends State<UpiScreen> {
     fontSize: 14,
   );
   // <---- Test ---->
-  ShopModel shop = ShopModel(upi_id: "@example", shop_name: 'Manas');
+  //ShopModel shop = ShopModel(upi_id: "@example", shop_name: 'Manas');
   double amount = 100.0;
   // <---- Test ---->
   @override
@@ -37,12 +37,11 @@ class _UpiScreenState extends State<UpiScreen> {
     super.initState();
   }
 
-  Future<UpiResponse> initiateTransaction(
-      UpiApp app, ShopModel shop, double amount) async {
+  Future<UpiResponse> initiateTransaction(UpiApp app) async {
     return _upiIndia.startTransaction(
       app: app,
-      receiverUpiId: shop.upi_id,
-      receiverName: shop.shop_name,
+      receiverUpiId: "@example",
+      receiverName: "shop_name",
       transactionRefId: 'TestingUpiIndiaPlugin',
       transactionNote: 'Not actual. Just an example.',
       amount: amount,
@@ -68,7 +67,7 @@ class _UpiScreenState extends State<UpiScreen> {
             children: apps!.map<Widget>((UpiApp app) {
               return GestureDetector(
                 onTap: () {
-                  _transaction = initiateTransaction(app, shop, amount);
+                  _transaction = initiateTransaction(app);
                   setState(() {});
                 },
                 child: Container(

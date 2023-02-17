@@ -26,17 +26,14 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    List<Map<dynamic,dynamic>> t = [{
-                'name':'abc',
-                'price':20,
-              },
-              {
-                'name':'def'
-              },
-              {
-                'name':'zzzasdbsdfbfsg'
-              },
-              ];
+    List<Map<dynamic, dynamic>> t = [
+      {
+        'name': 'abc',
+        'price': 20,
+      },
+      {'name': 'def'},
+      {'name': 'zzzasdbsdfbfsg'},
+    ];
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
@@ -44,7 +41,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       routes: {
-        '/': (context) => const WelcomeScreen(),
+        '/': (context) => const SplashScreen(),
       },
     );
   }
