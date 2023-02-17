@@ -1,6 +1,8 @@
+
 import 'dart:io';
 
 import 'package:campus_catalogue/constants/colors.dart';
+import 'package:campus_catalogue/constants/typography.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -116,98 +118,132 @@ class _ItemEditorState extends State<ItemEditor> {
     if (!widget.item.containsKey('unselected_categories')) {
       widget.item.addAll({'unselected_categories': all_categories.toList()});
     }
-    return ExpansionTile(
-      title: Text(widget.item['name'] == '' ? "New Item" : widget.item['name']),
-      children: [
-        x,
-        SizedBox(
-          child: TextFormField(
-              onChanged: (name) {
-                setState(() {
-                  widget.item['name'] = name;
-                });
-              },
-              initialValue: widget.item['name'],
-              // controller: _name,
-              decoration: const InputDecoration(
-                icon: Icon(Icons.local_pizza),
-                labelText: 'Item Name',
-              )),
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+      padding: EdgeInsets.symmetric(horizontal: 20),
+      color: AppColors.signIn,
+      child: ExpansionTile(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        collapsedBackgroundColor: AppColors.signIn,
+        title: Text(
+          widget.item['name'] == '' ? "New Item" : widget.item['name'],
+          style: AppTypography.textMd.copyWith(fontWeight: FontWeight.w600),
         ),
-        SizedBox(
-          child: TextFormField(
-              onChanged: (price) {
-                setState(() {
-                  widget.item['price'] = double.parse(price);
-                });
-              },
-              initialValue: widget.item['price'] == 0
-                  ? ''
-                  : widget.item['price'].toString(),
-              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                icon: Icon(Icons.money),
-                labelText: 'Price',
-              )),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            const Icon(Icons.local_pizza),
-            const SizedBox(
-              width: 16,
+        expandedCrossAxisAlignment: CrossAxisAlignment.start,
+        expandedAlignment: Alignment.topLeft,
+        children: [
+          // x,
+          Align(
+            child: Text('Item Name'),
+            alignment: Alignment.topLeft,
+          ),
+          SizedBox(
+            child: TextFormField(
+                onChanged: (name) {
+                  setState(() {
+                    widget.item['name'] = name;
+                  });
+                },
+                initialValue: widget.item['name'],
+                decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    filled: true,
+                    fillColor: Colors.white)),
+          ),
+          Align(
+            child: Text('Price'),
+            alignment: Alignment.topLeft,
+          ),
+          SizedBox(
+            child: TextFormField(
+                onChanged: (price) {
+                  setState(() {
+                    widget.item['price'] = double.parse(price);
+                  });
+                },
+                initialValue: widget.item['price'] == 0
+                    ? ''
+                    : widget.item['price'].toString(),
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    filled: true,
+                    fillColor: Colors.white)),
+          ),
+          Align(
+            alignment: Alignment.topLeft,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              // mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  width: 16,
+                ),
+                Checkbox(
+                  value: widget.item['veg'],
+                  onChanged: (bool? val) {
+                    setState(() {
+                      widget.item['veg'] = val;
+                    });
+                  },
+                ),
+                const Text('Vegetarian'),
+              ],
             ),
-            const Text('Vegetarian'),
-            Checkbox(
-              value: widget.item['veg'],
-              onChanged: (bool? val) {
-                setState(() {
-                  widget.item['veg'] = val;
-                });
-              },
+          ),
+          Align(
+            child: Text('Description'),
+            alignment: Alignment.topLeft,
+          ),
+
+          SizedBox(
+            child: TextFormField(
+                onChanged: (description) {
+                  setState(() {
+                    widget.item['description'] = description;
+                  });
+                },
+                initialValue: widget.item['description'],
+                maxLines: 2,
+                decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    filled: true,
+                    fillColor: Colors.white)),
+          ),
+          const Text('Relevant Tags'),
+          SizedBox(
+            width: MediaQuery.of(context).size.width,
+            // height: 60,
+
+            child: Expanded(
+              child: Container(
+                color: Colors.white,
+                child: Wrap(
+                    children: widget.item['categories']
+                        .toList()
+                        .map<Widget>((category) {
+                  return CategoryCard(
+                    category: category,
+                    shift_card: shift_card,
+                    is_selected: true,
+                  );
+                }).toList()),
+              ),
             ),
-          ],
-        ),
-        SizedBox(
-          child: TextFormField(
-              onChanged: (description) {
-                setState(() {
-                  widget.item['description'] = description;
-                });
-              },
-              initialValue: widget.item['description'],
-              maxLines: 2,
-              decoration: const InputDecoration(
-                icon: Icon(Icons.notes),
-                labelText: 'Description',
-              )),
-        ),
-        const Text('Tags'),
-        const Text(
-            'Tags help us show your menu items to relevant customers(improve this wording)'),
-        Card(
-          child: Wrap(
-              children:
-                  widget.item['categories'].toList().map<Widget>((category) {
+          ),
+          Wrap(
+              children: widget.item['unselected_categories']
+                  .toList()
+                  .map<Widget>((category) {
             return CategoryCard(
               category: category,
               shift_card: shift_card,
-              is_selected: true,
+              is_selected: false,
             );
           }).toList()),
-        ),
-        Wrap(
-            children: widget.item['unselected_categories']
-                .toList()
-                .map<Widget>((category) {
-          return CategoryCard(
-            category: category,
-            shift_card: shift_card,
-            is_selected: false,
-          );
-        }).toList()),
-      ],
+        ],
+      ),
     );
   }
 }
@@ -231,6 +267,9 @@ class _EditMenuState extends State<EditMenu> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            Text('Add Food Items',
+                style:
+                    AppTypography.textMd.copyWith(fontWeight: FontWeight.w700)),
             Column(
               children: widget.menu.toList().map((item) {
                 return ItemEditor(item: item);
