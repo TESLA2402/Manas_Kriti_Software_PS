@@ -3,13 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:campus_catalogue/constants/colors.dart';
 import 'package:campus_catalogue/constants/typography.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
-
-  @override
-  _HomeScreenState createState() => _HomeScreenState();
-}
-
 class ShopHeader extends StatelessWidget {
   final String name;
   const ShopHeader({super.key, required this.name});
@@ -265,7 +258,24 @@ class _SearchInputState extends State<SearchInput> {
   }
 }
 
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
 class _HomeScreenState extends State<HomeScreen> {
+  FirebaseFirestore db = FirebaseFirestore.instance;
+
+  Future<List> getCampusFavouriteShops() async {
+    List tmp = [];
+    await db.collection("shops").get().then((e) => {
+          for (var doc in e.docs) {tmp.add(doc)}
+        });
+    return tmp;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -283,55 +293,41 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: AppColors.backgroundYellow,
         body: SingleChildScrollView(
           child: Column(
-            children: const [
-              SearchInput(),
-              LocationCardWrapper(),
-              ShopHeader(name: "Campus Favourites"),
-              ShopCardWrapper(shops: [
-                {
-                  "name": "Roasted Pot",
-                  "imgURL": "assets/temp.png",
-                  "rating": "4.7",
-                  "location": "Khokha Market"
-                },
-                {
-                  "name": "Lauriat",
-                  "imgURL": "assets/temp.png",
-                  "rating": "2.6",
-                  "location": "Market Complex"
-                },
-                {
-                  "name": "Taco Tales",
-                  "imgURL": "assets/temp.png",
-                  "rating": "3.4",
-                  "location": "Swimming Pool Area"
-                }
-              ]),
-              ShopHeader(name: "Recommended"),
-              ShopCardWrapper(shops: [
-                {
-                  "name": "Roasted Pot",
-                  "imgURL": "assets/temp.png",
-                  "rating": "4.7",
-                  "location": "Khokha Market"
-                },
-                {
-                  "name": "Lauriat",
-                  "imgURL": "assets/temp.png",
-                  "rating": "2.6",
-                  "location": "Market Complex"
-                },
-                {
-                  "name": "Taco Tales",
-                  "imgURL": "assets/temp.png",
-                  "rating": "3.4",
-                  "location": "Swimming Pool Area"
-                }
-              ]),
+            children: [
+              const SearchInput(),
+              const LocationCardWrapper(),
+              const ShopHeader(name: "Campus Favourites"),
+              FutureBuilder<List<dynamic>>(
+                  future: getCampusFavouriteShops(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<dynamic>> snapshot) {
+                    if (snapshot.hasData) {
+                      final campusFavs = snapshot.data!;
+                      return ShopCardWrapper(shops: campusFavs);
+                    } else {
+                      return const CircularProgressIndicator(
+                          color: AppColors.backgroundOrange);
+                    }
+                  }),
+              const ShopHeader(name: "Recommended"),
+              FutureBuilder<List<dynamic>>(
+                  future: getCampusFavouriteShops(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<dynamic>> snapshot) {
+                    if (snapshot.hasData) {
+                      final campusFavs = snapshot.data!;
+                      return ShopCardWrapper(shops: campusFavs);
+                    } else {
+                      return const CircularProgressIndicator(
+                          color: AppColors.backgroundOrange);
+                    }
+                  }),
+              // ShopCardWrapper(shops: campusFavouriteShops),
             ],
           ),
         ),
         bottomNavigationBar: BottomNavigationBar(
+          selectedItemColor: AppColors.backgroundOrange,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
