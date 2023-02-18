@@ -522,7 +522,8 @@ class _SellerAdditionalState extends State<SellerAdditional> {
                     phoneNumber: _phoneController.text,
                     shopName: widget.shopName,
                     shopType: widget.shopType,
-                    upiId: _upiIdController.text);
+                    upiId: _upiIdController.text,
+                    menu: menu);
                 await service.addShop(shop);
                 Navigator.push(
                   context,

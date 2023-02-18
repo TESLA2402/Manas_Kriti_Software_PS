@@ -9,7 +9,24 @@ class DatabaseService {
   }
 
   addShop(ShopModel employeeData) async {
+    print(employeeData);
+    return;
+    List menu = employeeData.menu;
+    employeeData.menu = [];
+    for (int i = 0; i < menu.length; i++) {
+      menu[i].remove('unselected_categories');
+      if (menu[i].containsKey('id')) {
+        String id = menu[i]['id'];
+        employeeData.menu.add(id);
+        menu[i].remove('id');
+        await _db.collection('items').doc(id).set(menu[i]);
+      } else {
+        DocumentReference docref = await _db.collection('items').add(menu[i]);
+        employeeData.menu.add(docref.id);
+      }
+    }
     await _db.collection("shop").add(employeeData.toMap());
+    print(employeeData);
   }
 
   Future<List> retrieveBuyer() async {
