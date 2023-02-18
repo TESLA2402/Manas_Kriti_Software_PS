@@ -1,3 +1,4 @@
+import 'package:campus_catalogue/add_item.dart';
 import 'package:campus_catalogue/constants/colors.dart';
 import 'package:campus_catalogue/constants/typography.dart';
 import 'package:campus_catalogue/models/order_model.dart';
@@ -85,7 +86,7 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
                         height: 4,
                       ),
                       Text(
-                        "Rs. 3245.00",
+                        "Rs. 0.00",
                         style: AppTypography.textMd.copyWith(
                             fontWeight: FontWeight.w700,
                             color: AppColors.backgroundOrange),
@@ -124,48 +125,24 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
             const SizedBox(
               height: 32,
             ),
-            Row(
-              children: [
-                Container(
+            Center(
+              child: GestureDetector(
+                // onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ItemEditor(item: item, delete_item: delete_item))),
+                child: Container(
+                  width: 340,
                   padding: const EdgeInsets.fromLTRB(20, 35, 20, 35),
                   decoration: BoxDecoration(
                       color: AppColors.signIn,
                       borderRadius: BorderRadius.circular(10)),
-                  child: Text(
-                    "Update \nMenu",
-                    style: AppTypography.textMd
-                        .copyWith(fontWeight: FontWeight.w500, fontSize: 14),
+                  child: Center(
+                    child: Text(
+                      "Update Menu",
+                      style: AppTypography.textMd
+                          .copyWith(fontWeight: FontWeight.w700, fontSize: 20),
+                    ),
                   ),
                 ),
-                const SizedBox(
-                  width: 10,
-                ),
-                Container(
-                  padding: const EdgeInsets.fromLTRB(20, 35, 20, 35),
-                  decoration: BoxDecoration(
-                      color: AppColors.signIn,
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Text(
-                    "Order \nHistory",
-                    style: AppTypography.textMd
-                        .copyWith(fontWeight: FontWeight.w500, fontSize: 14),
-                  ),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                Container(
-                  padding: const EdgeInsets.fromLTRB(20, 35, 20, 35),
-                  decoration: BoxDecoration(
-                      color: AppColors.signIn,
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Text(
-                    "Revenue \nAnalysis",
-                    style: AppTypography.textMd
-                        .copyWith(fontWeight: FontWeight.w500, fontSize: 14),
-                  ),
-                ),
-              ],
+              ),
             ),
             const SizedBox(
               height: 12,
@@ -173,9 +150,6 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
             Text(
               "Current Orders",
               style: AppTypography.textMd.copyWith(fontWeight: FontWeight.w700),
-            ),
-            const SizedBox(
-              height: 8,
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height,
