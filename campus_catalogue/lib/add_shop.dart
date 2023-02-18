@@ -77,14 +77,11 @@ class _EditShopScreenState extends State<EditShop> {
           //   DropdownMenuItem(child: Text('abc')),
           //   DropdownMenuItem(child: Text('abc')),
           //   ], onChanged: null),
-          
-
 
           ElevatedButton(
               child: const Text('Add Menu'),
-              onPressed: () => {
-                    edit_menu(menu: widget.shop['menu'], context: context)
-                  }),
+              onPressed: () =>
+                  {edit_menu(menu: widget.shop['menu'], context: context)}),
           ElevatedButton(
             child: const Text("Done"),
             onPressed: () {
