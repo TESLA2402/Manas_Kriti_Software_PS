@@ -1,5 +1,6 @@
 import 'package:campus_catalogue/models/buyer_model.dart';
 import 'package:campus_catalogue/models/item_model.dart';
+import 'package:campus_catalogue/models/order_model.dart';
 import 'package:campus_catalogue/models/shopModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -61,6 +62,16 @@ class DatabaseService {
         await _db.collection("Buyer").get();
     return snapshot.docs
         .map((docSnapshot) => Buyer.fromDocumentSnapshot(docSnapshot))
+        .toList();
+  }
+
+  Future<List<OrderModel>> retrieveOrders(shopId) async {
+    QuerySnapshot<Map<String, dynamic>> snapshot = await _db
+        .collection("orders")
+        .where("shop_id", isEqualTo: shopId)
+        .get();
+    return snapshot.docs
+        .map((docSnapshot) => OrderModel.fromDocumentSnapshot(docSnapshot))
         .toList();
   }
 }

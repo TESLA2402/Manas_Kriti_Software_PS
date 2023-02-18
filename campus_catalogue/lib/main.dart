@@ -75,13 +75,14 @@ class MyApp extends StatelessWidget {
           "num_ratings": 2
         });
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        routes: {
-          '/': (context) => HomeScreen(),
-        });
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      routes: {
+        '/': (context) => SellerHomeScreen(shop: shop),
+      },
+    );
   }
 }

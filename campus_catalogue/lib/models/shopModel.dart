@@ -8,6 +8,7 @@ class ShopModel {
   String closingTime;
   String ownerName;
   String phoneNumber;
+  bool? status;
   String alternatePhoneNumber;
   List menu;
   Map<String, int> rating;
@@ -24,6 +25,7 @@ class ShopModel {
       required this.shopType,
       required this.upiId,
       required this.menu,
+      this.status,
       required this.rating});
 
   Map<String, dynamic> toMap() {
@@ -39,7 +41,8 @@ class ShopModel {
       'phone_number': phoneNumber,
       'alternate_phone_number': alternatePhoneNumber,
       'menu': menu,
-      "rating": rating
+      "rating": rating,
+      "status": status
     };
   }
 
@@ -55,5 +58,6 @@ class ShopModel {
         phoneNumber = sellerMap["phone_number"],
         alternatePhoneNumber = sellerMap["alternate_phone_number"],
         menu = sellerMap["menu"],
-        rating = sellerMap["rating"];
+        rating = sellerMap["rating"],
+        status = sellerMap["status"];
 }
