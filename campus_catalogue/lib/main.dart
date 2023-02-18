@@ -47,25 +47,29 @@ class MyApp extends StatelessWidget {
             "name": "Pizza",
             "price": 125,
             "vegetarian": true,
-            "description": "Exotic cheesy multi level pizza"
+            "description": "Exotic cheesy multi level pizza",
+            "category": []
           },
           {
             "name": "Pizza",
             "price": 125,
             "vegetarian": false,
-            "description": "Exotic cheesy multi level pizza"
+            "description": "Exotic cheesy multi level pizza",
+            "category": []
           },
           {
             "name": "Pizza",
             "price": 125,
             "vegetarian": true,
-            "description": "Exotic cheesy multi level pizza"
+            "description": "Exotic cheesy multi level pizza",
+            "category": []
           },
           {
             "name": "Pizza",
             "price": 125,
             "vegetarian": true,
-            "description": "Exotic cheesy multi level pizza"
+            "description": "Exotic cheesy multi level pizza",
+            "category": []
           }
         ],
         rating: {
@@ -79,7 +83,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       routes: {
-        '/': (context) => ShopPage(shop: shop),
+        '/': (context) => SellerHomeScreen(shop: shop),
+      },
 
     );
   }
