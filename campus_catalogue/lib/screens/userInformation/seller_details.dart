@@ -1,3 +1,4 @@
+import 'package:campus_catalogue/add_item.dart';
 import 'package:campus_catalogue/constants/colors.dart';
 import 'package:campus_catalogue/constants/typography.dart';
 import 'package:campus_catalogue/models/shopModel.dart';
@@ -11,7 +12,7 @@ import 'package:flutter/material.dart';
 import '../home_screen.dart';
 
 class SellerDetails extends StatefulWidget {
-  const SellerDetails({Key? key}) : super(key: key);
+  SellerDetails({Key? key}) : super(key: key);
 
   @override
   _SellerDetailsState createState() => _SellerDetailsState();
@@ -406,6 +407,7 @@ class SellerAdditional extends StatefulWidget {
 }
 
 class _SellerAdditionalState extends State<SellerAdditional> {
+  List<dynamic> menu = [];
   @override
   final TextEditingController _ownerNameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
@@ -480,15 +482,27 @@ class _SellerAdditionalState extends State<SellerAdditional> {
           const SizedBox(
             height: 32,
           ),
-          Container(
-            padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(6),
-                border: Border.all(width: 2, color: Color(0xFFFC8019))),
-            child: Text(
-              "Add Food Items",
-              style: AppTypography.textMd.copyWith(
-                  fontWeight: FontWeight.w700, color: Color(0xFFFC8019)),
+          GestureDetector(
+            onTap: () => {
+              // print('hello')
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => EditMenu(
+                          menu: menu,
+                        )),
+              )
+            },
+            child: Container(
+              padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(6),
+                  border: Border.all(width: 2, color: Color(0xFFFC8019))),
+              child: Text(
+                "Add Food Items",
+                style: AppTypography.textMd.copyWith(
+                    fontWeight: FontWeight.w700, color: Color(0xFFFC8019)),
+              ),
             ),
           ),
           const Spacer(),
