@@ -1,4 +1,5 @@
 import 'package:campus_catalogue/screens/search_screen.dart';
+import 'package:campus_catalogue/screens/shop_info.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:campus_catalogue/constants/colors.dart';
@@ -41,14 +42,27 @@ class ShopCardWrapper extends StatelessWidget {
           itemBuilder: (BuildContext context, int index) {
             return Padding(
               padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
-              child: ShopCard(
-                  name: shops[index]["shop_name"],
-                  rating: "0",
-                  location: shops[index]["location"],
-                  menu: shops[index]["menu"],
-                  ownerName: shops[index]["owner_name"],
-                  upiID: shops[index]["upi_id"],
-                  status: true),
+              child: GestureDetector(
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ShopPage(
+                            name: shops[index]["shop_name"],
+                            rating: "0",
+                            location: shops[index]["location"],
+                            menu: shops[index]["menu"],
+                            ownerName: shops[index]["owner_name"],
+                            upiID: shops[index]["upi_id"],
+                            status: true))),
+                child: ShopCard(
+                    name: shops[index]["shop_name"],
+                    rating: "0",
+                    location: shops[index]["location"],
+                    menu: shops[index]["menu"],
+                    ownerName: shops[index]["owner_name"],
+                    upiID: shops[index]["upi_id"],
+                    status: true),
+              ),
             );
           }),
     );
@@ -178,39 +192,40 @@ class _LocationCardWrapperState extends State<LocationCardWrapper> {
                     onTap: () =>
                         getShopsFromLocation("Hostel Canteen", context),
                     child: const LocationCard(
-                      name: "Hostel Canteens",
-                    ),
+                        name: "Hostel Canteens",
+                        imgURL: "assets/hostel_canteens.png"),
                   ),
                   GestureDetector(
                     onTap: () =>
                         getShopsFromLocation("Hostel Juice Centre", context),
                     child: const LocationCard(
-                      name: "Hostel Juice Centres",
-                    ),
+                        name: "Hostel Juice Centres",
+                        imgURL: "assets/core_canteens.png"),
                   ),
                   GestureDetector(
                     onTap: () =>
                         getShopsFromLocation("Market Complex", context),
                     child: const LocationCard(
-                      name: "Market Complex",
-                    ),
+                        name: "Market Complex",
+                        imgURL: "assets/market_complex.png"),
                   ),
                   GestureDetector(
                     onTap: () => getShopsFromLocation("Khokha Market", context),
                     child: const LocationCard(
-                      name: "Khokha Market",
-                    ),
+                        name: "Khokha Market",
+                        imgURL: "assets/khokha_stalls.png"),
                   ),
                   GestureDetector(
                     onTap: () => getShopsFromLocation("Food Court", context),
-                    child: const LocationCard(name: "Food Court"),
+                    child: const LocationCard(
+                        name: "Food Court", imgURL: "assets/food_court.png"),
                   ),
                   GestureDetector(
                     onTap: () =>
                         getShopsFromLocation("Swimming Pool Area", context),
                     child: const LocationCard(
-                      name: "Swimming Pool Area",
-                    ),
+                        name: "Swimming Pool Area",
+                        imgURL: "assets/food_van.png"),
                   ),
                 ]),
               ),
@@ -222,8 +237,8 @@ class _LocationCardWrapperState extends State<LocationCardWrapper> {
 
 class LocationCard extends StatelessWidget {
   final String name;
-  const LocationCard({super.key, required this.name});
-
+  final String imgURL;
+  const LocationCard({super.key, required this.name, required this.imgURL});
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -238,6 +253,7 @@ class LocationCard extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                Image.asset(imgURL),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
                   child: Text(

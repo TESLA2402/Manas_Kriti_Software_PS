@@ -7,6 +7,39 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:campus_catalogue/services/database_service.dart';
 import 'package:flutter/material.dart';
 
+class OrderWrapper extends StatelessWidget {
+  final List orders;
+  const OrderWrapper({super.key, required this.orders});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height,
+      child: ListView.builder(
+        itemCount: orders.length,
+        itemBuilder: (context, index) {
+          final order = orders[index];
+          print(orders.length);
+          return Column(
+            children: [
+              OrderTile(
+                buyerName: order["buyer_name"],
+                buyerPhone: order["buyer_phone"],
+                status: order["status"],
+                totalAmount: order["total_amount"],
+                txnId: order["txnId"],
+              ),
+              SizedBox(
+                height: 10,
+              )
+            ],
+          );
+        },
+      ),
+    );
+  }
+}
+
 class SellerHomeScreen extends StatefulWidget {
   ShopModel shop;
   SellerHomeScreen({Key? key, required this.shop}) : super(key: key);
@@ -18,16 +51,17 @@ class SellerHomeScreen extends StatefulWidget {
 class _SellerHomeScreenState extends State<SellerHomeScreen> {
   List<dynamic> menu = [];
   DatabaseService service = DatabaseService();
-  Future<List<OrderModel>>? orders;
-
-  @override
-  void initState() {
-    super.initState();
-    initRetrieval();
-  }
-
-  Future<void> initRetrieval() async {
-    orders = service.retrieveOrders(widget.shop.shopID);
+  Future<List> getOrders() async {
+    List tmp = [];
+    final orders = await FirebaseFirestore.instance
+        .collection("orders")
+        .where("shop_id", isEqualTo: widget.shop.shopID)
+        .limit(10)
+        .get();
+    for (var doc in orders.docs) {
+      tmp.add(doc);
+    }
+    return tmp;
   }
 
   @override
@@ -178,10 +212,23 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
               "Current Orders",
               style: AppTypography.textMd.copyWith(fontWeight: FontWeight.w700),
             ),
+            FutureBuilder<List<dynamic>>(
+                future: getOrders(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<dynamic>> snapshot) {
+                  if (snapshot.hasData) {
+                    final orders = snapshot.data!;
+                    return OrderWrapper(orders: orders);
+                  } else {
+                    return Text("No orders",
+                        style: AppTypography.textMd.copyWith(
+                            fontSize: 20, fontWeight: FontWeight.w700));
+                  }
+                }),
             // SizedBox(
             //   height: MediaQuery.of(context).size.height,
             //   child: ListView.builder(
-            //     itemCount: orders?.length,
+            //     itemCount: orders.length,
             //     itemBuilder: (context, index) {
             //       final order = orders[index];
             //       return Column(
@@ -205,8 +252,21 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
 }
 
 class OrderTile extends StatefulWidget {
-  OrderModel order;
-  OrderTile({Key? key, required this.order}) : super(key: key);
+  OrderModel? order;
+  final String buyerPhone;
+  final String buyerName;
+  final String txnId;
+  final String status;
+  final int totalAmount;
+  OrderTile(
+      {Key? key,
+      this.order,
+      required this.buyerName,
+      required this.buyerPhone,
+      required this.status,
+      required this.totalAmount,
+      required this.txnId})
+      : super(key: key);
 
   @override
   _OrderTileState createState() => _OrderTileState();
@@ -216,65 +276,55 @@ class _OrderTileState extends State<OrderTile> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 80,
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: AppColors.signIn,
         borderRadius: BorderRadius.circular(10),
       ),
-      child: Row(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Icon(
-            Icons.account_circle_rounded,
-          ),
-          SizedBox(
-            width: 8,
-          ),
-          Column(
+          Row(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                widget.buyerPhone,
+                style: AppTypography.textMd
+                    .copyWith(fontSize: 15, fontWeight: FontWeight.w500),
+              ),
+              //const Spacer(),
+              Text(
+                widget.buyerName,
+                style: AppTypography.textMd
+                    .copyWith(fontSize: 15, fontWeight: FontWeight.w400),
+              )
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Text(
-                    widget.order.buyerPhone,
-                    style: AppTypography.textMd
-                        .copyWith(fontSize: 12, fontWeight: FontWeight.w500),
-                  ),
-                  //const Spacer(),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.6,
-                  ),
-                  Text(
-                    widget.order.buyerName,
-                    style: AppTypography.textMd
-                        .copyWith(fontSize: 12, fontWeight: FontWeight.w400),
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 4,
-              ),
-              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Container(
-                    padding: const EdgeInsets.fromLTRB(8, 2, 8, 2),
+                    padding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
                     decoration: BoxDecoration(
                         color: AppColors.backgroundOrange,
                         borderRadius: BorderRadius.circular(5)),
                     child: Text(
                       "CONFIRM",
                       style: AppTypography.textMd.copyWith(
-                          fontSize: 10,
+                          fontSize: 15,
                           fontWeight: FontWeight.w500,
                           color: Colors.white),
                     ),
                   ),
-                  SizedBox(
-                    width: 8,
-                  ),
                   Container(
-                    padding: const EdgeInsets.fromLTRB(8, 2, 8, 2),
+                    padding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
                     decoration: BoxDecoration(
                         color: AppColors.backgroundYellow,
                         border: Border.all(
@@ -283,16 +333,13 @@ class _OrderTileState extends State<OrderTile> {
                     child: Text(
                       "REJECT",
                       style: AppTypography.textMd.copyWith(
-                          fontSize: 10,
+                          fontSize: 15,
                           fontWeight: FontWeight.w500,
                           color: Colors.black),
                     ),
                   ),
-                  SizedBox(
-                    width: 8,
-                  ),
                   Container(
-                    padding: const EdgeInsets.fromLTRB(8, 2, 8, 2),
+                    padding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
                     decoration: BoxDecoration(
                         color: AppColors.backgroundYellow,
                         border: Border.all(
@@ -301,25 +348,19 @@ class _OrderTileState extends State<OrderTile> {
                     child: Text(
                       "VIEW",
                       style: AppTypography.textMd.copyWith(
-                          fontSize: 10,
+                          fontSize: 15,
                           fontWeight: FontWeight.w500,
                           color: Colors.black),
                     ),
                   ),
-                  //Spacer(),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.2,
-                  ),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      "Rs." + widget.order.totalAmount.toString(),
-                      textAlign: TextAlign.end,
-                      style: AppTypography.textMd
-                          .copyWith(fontWeight: FontWeight.w700, fontSize: 10),
-                    ),
-                  )
                 ],
+              ),
+              //Spacer(),
+              Text(
+                "Rs." + widget.totalAmount.toString(),
+                textAlign: TextAlign.end,
+                style: AppTypography.textMd
+                    .copyWith(fontWeight: FontWeight.w700, fontSize: 10),
               )
             ],
           )
