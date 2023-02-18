@@ -85,6 +85,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => SellerHomeScreen(shop: shop),
       },
+
     );
   }
 }
