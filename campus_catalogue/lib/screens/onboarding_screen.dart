@@ -25,11 +25,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             Text("Lazy morning or a busy day?",
                 style: AppTypography.textMd
                     .copyWith(fontSize: 20, fontWeight: FontWeight.w700)),
-                        ElevatedButton(
-                onPressed: () {
-                  edit_shop(context: context);
-                },
-                child: Text('test')),
             const SizedBox(
               height: 4,
             ),
@@ -39,7 +34,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 style: AppTypography.textSm.copyWith(fontSize: 14)),
             Image.asset("assets/onboarding_image.png"),
             const Spacer(),
-            
             GestureDetector(
               onTap: () {
                 Navigator.push(
@@ -68,7 +62,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 ],
               ),
             ),
-        
           ],
         ),
       ),

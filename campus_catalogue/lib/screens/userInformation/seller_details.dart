@@ -2,6 +2,7 @@ import 'package:campus_catalogue/add_item.dart';
 import 'package:campus_catalogue/constants/colors.dart';
 import 'package:campus_catalogue/constants/typography.dart';
 import 'package:campus_catalogue/models/shopModel.dart';
+import 'package:campus_catalogue/screens/seller_home_screen.dart';
 import 'package:campus_catalogue/screens/userInformation/buyer_details.dart';
 import 'package:campus_catalogue/services/database_service.dart';
 import 'package:dropdown_button2/custom_dropdown_button2.dart';
@@ -526,7 +527,10 @@ class _SellerAdditionalState extends State<SellerAdditional> {
                 await service.addShop(shop);
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const HomeScreen()),
+                  MaterialPageRoute(
+                      builder: (context) => SellerHomeScreen(
+                            shop: shop,
+                          )),
                 );
               }
             },
