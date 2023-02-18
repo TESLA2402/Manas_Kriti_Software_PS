@@ -2,6 +2,7 @@ import 'dart:collection';
 
 import 'package:campus_catalogue/constants/colors.dart';
 import 'package:campus_catalogue/constants/typography.dart';
+import 'package:campus_catalogue/models/item_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:campus_catalogue/models/shopModel.dart';
 import 'package:flutter/material.dart';
@@ -9,25 +10,15 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/src/rendering/box.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:campus_catalogue/models/shopModel.dart';
 
 class ItemCard extends StatelessWidget {
-  final String name;
-  final int price;
-  final String description;
-  final bool vegetarian;
-  const ItemCard(
-      {super.key,
-      required this.name,
-      required this.price,
-      required this.description,
-      required this.vegetarian});
+  final ItemModel items;
+  const ItemCard({super.key, required this.items});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.fromLTRB(20, 0, 20, 5),
-      height: 128,
       child: Card(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -41,7 +32,7 @@ class ItemCard extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    if (vegetarian)
+                    if (items.vegetarian)
                       Text(
                         "VEG",
                         style: AppTypography.textSm.copyWith(
@@ -55,23 +46,23 @@ class ItemCard extends StatelessWidget {
                               fontSize: 14)),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
-                      child: Text("PRICE: Rs. ${price}",
+                      child: Text("PRICE: Rs. ${items.price}",
                           style: AppTypography.textSm.copyWith(fontSize: 14)),
                     ),
                     Text(
-                      name,
+                      items.name,
                       style: AppTypography.textMd
                           .copyWith(fontSize: 20, fontWeight: FontWeight.w700),
                     ),
                     Text(
-                      description,
+                      items.description,
                       style: AppTypography.textSm
                           .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
                     )
                   ],
                 ),
                 ElevatedButton(
-                  onPressed: () => {},
+                  onPressed: () {},
                   child: Text("ADD TO CART"),
                   style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.backgroundOrange),
@@ -195,10 +186,17 @@ class _ShopPageState extends State<ShopPage> {
             ),
             for (var item in widget.shop.menu)
               ItemCard(
-                  name: item["name"],
-                  price: item["price"],
-                  description: item["description"],
-                  vegetarian: item["vegetarian"]),
+                // name: item["name"],
+                // price: item["price"],
+                // description: item["description"],
+                // vegetarian: item["vegetarian"]
+                items: ItemModel(
+                    category: item["category"],
+                    price: item["price"],
+                    description: item["description"],
+                    vegetarian: item["vegetarian"],
+                    name: item["name"]),
+              ),
           ],
         ),
       ),

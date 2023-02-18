@@ -112,7 +112,6 @@ class _ItemCardState extends State<ItemCard> {
   Widget build(BuildContext context) {
     int quantity = 0;
     ItemModel item = ItemModel(
-        shopID: "shopID",
         category: "category",
         description: "description",
         name: "name",
