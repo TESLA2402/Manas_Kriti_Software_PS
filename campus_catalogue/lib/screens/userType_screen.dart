@@ -83,7 +83,7 @@ class _UserTypeState extends State<UserType> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const SellerDetails()),
+                MaterialPageRoute(builder: (context) => SellerDetails()),
               );
             },
             child: Container(
