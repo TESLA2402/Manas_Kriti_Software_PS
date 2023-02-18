@@ -2,14 +2,16 @@ import 'dart:collection';
 
 import 'package:campus_catalogue/constants/colors.dart';
 import 'package:campus_catalogue/constants/typography.dart';
+import 'package:campus_catalogue/models/item_model.dart';
+import 'package:campus_catalogue/services/database_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:campus_catalogue/models/shopModel.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/src/rendering/box.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:campus_catalogue/models/shopModel.dart';
 
 class ItemCard extends StatelessWidget {
   final String name;
@@ -27,7 +29,6 @@ class ItemCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.fromLTRB(20, 0, 20, 5),
-      height: 128,
       child: Card(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -71,7 +72,18 @@ class ItemCard extends StatelessWidget {
                   ],
                 ),
                 ElevatedButton(
-                  onPressed: () => {},
+                  onPressed: () async {
+                    DatabaseService service = DatabaseService();
+                    final FirebaseAuth _auth = FirebaseAuth.instance;
+                    final User user = await _auth.currentUser!;
+                    ItemModel item = ItemModel(
+                        category: "xbks",
+                        description: "hey",
+                        name: name,
+                        price: price.toString(),
+                        vegetarian: vegetarian);
+                    await service.addToCart(item);
+                  },
                   child: Text("ADD TO CART"),
                   style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.backgroundOrange),
@@ -214,6 +226,7 @@ class _ShopPageState extends State<ShopPage> {
                   price: item["price"],
                   description: item["description"],
                   vegetarian: item["veg"]),
+
           ],
         ),
       ),

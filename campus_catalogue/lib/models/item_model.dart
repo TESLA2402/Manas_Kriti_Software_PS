@@ -1,5 +1,4 @@
 class ItemModel {
-  String shopID;
   String name;
   String price;
   String category;
@@ -7,8 +6,7 @@ class ItemModel {
   String description;
 
   ItemModel(
-      {required this.shopID,
-      required this.category,
+      {required this.category,
       required this.description,
       required this.name,
       required this.price,
@@ -16,7 +14,6 @@ class ItemModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'shop_id': shopID,
       'category': category,
       'description': description,
       'name': name,
@@ -26,8 +23,7 @@ class ItemModel {
   }
 
   ItemModel.fromMap(Map<String, dynamic> sellerMap)
-      : shopID = sellerMap["shop_id"],
-        category = sellerMap["category"],
+      : category = sellerMap["category"],
         description = sellerMap["description"],
         name = sellerMap["name"],
         price = sellerMap["price"],
