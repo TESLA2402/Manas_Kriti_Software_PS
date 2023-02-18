@@ -15,7 +15,7 @@ import 'package:image_picker/image_picker.dart';
 
 class ItemCard extends StatelessWidget {
   final String name;
-  final int price;
+  final double price;
   final String description;
   final bool vegetarian;
   const ItemCard(
@@ -97,7 +97,6 @@ class ItemCard extends StatelessWidget {
 }
 
 class ShopPage extends StatefulWidget {
-  final ShopModel shop;
   final String name;
   final String rating;
   final String location;
@@ -107,7 +106,6 @@ class ShopPage extends StatefulWidget {
   final bool status;
   const ShopPage(
       {super.key,
-      required this.shop,
       required this.name,
       required this.rating,
       required this.location,
@@ -225,7 +223,7 @@ class _ShopPageState extends State<ShopPage> {
                 name: item["name"],
                 price: item["price"],
                 description: item["description"],
-                vegetarian: item["vegetarian"],
+                vegetarian: item["veg"],
               ),
           ],
         ),
