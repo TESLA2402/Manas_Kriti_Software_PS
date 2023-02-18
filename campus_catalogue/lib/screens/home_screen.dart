@@ -1,7 +1,9 @@
+import 'package:campus_catalogue/screens/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:campus_catalogue/constants/colors.dart';
 import 'package:campus_catalogue/constants/typography.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class ShopHeader extends StatelessWidget {
   final String name;
@@ -124,8 +126,33 @@ class ShopCard extends StatelessWidget {
   }
 }
 
-class LocationCardWrapper extends StatelessWidget {
+class LocationCardWrapper extends StatefulWidget {
   const LocationCardWrapper({super.key});
+
+  @override
+  State<LocationCardWrapper> createState() => _LocationCardWrapperState();
+}
+
+class _LocationCardWrapperState extends State<LocationCardWrapper> {
+  void getShopsFromLocation(shopLocation, context) async {
+    List shopSearchResults = [];
+    final searchResult = await FirebaseFirestore.instance
+        .collection("shops")
+        .where("location", isEqualTo: shopLocation)
+        .get();
+    for (var doc in searchResult.docs) {
+      shopSearchResults.add(doc.data());
+    }
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => SearchScreen(
+                  items: [],
+                  shopResults: shopSearchResults,
+                  isSearch: true,
+                  title: "Explore IITG",
+                )));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -146,24 +173,46 @@ class LocationCardWrapper extends StatelessWidget {
               ),
               Align(
                 alignment: Alignment.topLeft,
-                child: Wrap(spacing: 8.8, runSpacing: 6.5, children: const [
-                  LocationCard(
-                      name: "Hostel Canteens",
-                      imgURL: "assets/hostel_canteens.png"),
-                  LocationCard(
-                      name: "Hostel Juice Centres",
-                      imgURL: "assets/core_canteens.png"),
-                  LocationCard(
-                      name: "Market Complex",
-                      imgURL: "assets/market_complex.png"),
-                  LocationCard(
-                      name: "Khokha Market",
-                      imgURL: "assets/khokha_stalls.png"),
-                  LocationCard(
-                      name: "Food Court", imgURL: "assets/food_court.png"),
-                  LocationCard(
-                      name: "Swimming Pool Area",
-                      imgURL: "assets/food_van.png"),
+                child: Wrap(spacing: 8.8, runSpacing: 6.5, children: [
+                  GestureDetector(
+                    onTap: () =>
+                        getShopsFromLocation("Hostel Canteen", context),
+                    child: const LocationCard(
+                        name: "Hostel Canteens",
+                        imgURL: "assets/hostel_canteens.png"),
+                  ),
+                  GestureDetector(
+                    onTap: () =>
+                        getShopsFromLocation("Hostel Juice Centre", context),
+                    child: const LocationCard(
+                        name: "Hostel Juice Centres",
+                        imgURL: "assets/core_canteens.png"),
+                  ),
+                  GestureDetector(
+                    onTap: () =>
+                        getShopsFromLocation("Market Complex", context),
+                    child: const LocationCard(
+                        name: "Market Complex",
+                        imgURL: "assets/market_complex.png"),
+                  ),
+                  GestureDetector(
+                    onTap: () => getShopsFromLocation("Khokha Market", context),
+                    child: const LocationCard(
+                        name: "Khokha Market",
+                        imgURL: "assets/khokha_stalls.png"),
+                  ),
+                  GestureDetector(
+                    onTap: () => getShopsFromLocation("Food Court", context),
+                    child: const LocationCard(
+                        name: "Food Court", imgURL: "assets/food_court.png"),
+                  ),
+                  GestureDetector(
+                    onTap: () =>
+                        getShopsFromLocation("Swimming Pool Area", context),
+                    child: const LocationCard(
+                        name: "Swimming Pool Area",
+                        imgURL: "assets/food_van.png"),
+                  ),
                 ]),
               ),
             ],
@@ -209,12 +258,66 @@ class LocationCard extends StatelessWidget {
 
 class SearchInput extends StatefulWidget {
   const SearchInput({super.key});
-
   @override
   State<SearchInput> createState() => _SearchInputState();
 }
 
 class _SearchInputState extends State<SearchInput> {
+  final searchController = TextEditingController();
+  List<String> searchTerms = [];
+  List itemSearchResult = [];
+  List shopSearchResult = [];
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    searchController.dispose();
+    super.dispose();
+  }
+
+  getSearchResult(searchTerm) async {
+    final searchResult = await FirebaseFirestore.instance
+        .collection("cache")
+        .doc(searchTerm)
+        .get();
+    return searchResult;
+  }
+
+  void searchSubmit(context) async {
+    searchTerms = searchController.text.split(' ');
+    Set items = {};
+    Set shops = {};
+    for (int i = 0; i < searchTerms.length; i++) {
+      var tmp = (await getSearchResult(searchTerms[i]));
+      itemSearchResult = tmp['items'];
+      shopSearchResult = tmp['shops'];
+
+      for (var item in itemSearchResult) {
+        final tmp = await FirebaseFirestore.instance
+            .collection("items")
+            .doc(item)
+            .get();
+        items.add(tmp.data());
+      }
+      for (var shop in shopSearchResult) {
+        final tmp = await FirebaseFirestore.instance
+            .collection("shops")
+            .doc(shop)
+            .get();
+        shops.add(tmp.data());
+      }
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => SearchScreen(
+                    items: items.toList(),
+                    shopResults: shops.toList(),
+                    isSearch: true,
+                    title: "Explore IITG",
+                  )));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -226,6 +329,8 @@ class _SearchInputState extends State<SearchInput> {
               Flexible(
                 flex: 1,
                 child: TextField(
+                  controller: searchController,
+                  onSubmitted: (e) => searchSubmit(context),
                   autofocus: false,
                   cursorColor: Colors.grey,
                   decoration: InputDecoration(
@@ -266,13 +371,16 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  FirebaseFirestore db = FirebaseFirestore.instance;
-
   Future<List> getCampusFavouriteShops() async {
     List tmp = [];
-    await db.collection("shops").get().then((e) => {
-          for (var doc in e.docs) {tmp.add(doc)}
-        });
+    final shops = await FirebaseFirestore.instance
+        .collection("shops")
+        .orderBy("rating", descending: true)
+        .limit(10)
+        .get();
+    for (var doc in shops.docs) {
+      tmp.add(doc);
+    }
     return tmp;
   }
 
@@ -280,16 +388,15 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            backgroundColor: AppColors.backgroundYellow,
-            elevation: 0,
-            title: Text("Explore IITG",
-                style: AppTypography.textMd.copyWith(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w700,
-                    color: AppColors.backgroundOrange)),
-            actions: [
-              IconButton(onPressed: () {}, icon: Image.asset("assets/user.png"))
-            ]),
+          backgroundColor: AppColors.backgroundYellow,
+          elevation: 0,
+          centerTitle: true,
+          title: Text("Explore IITG",
+              style: AppTypography.textMd.copyWith(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700,
+                  color: AppColors.backgroundOrange)),
+        ),
         backgroundColor: AppColors.backgroundYellow,
         body: SingleChildScrollView(
           child: Column(
