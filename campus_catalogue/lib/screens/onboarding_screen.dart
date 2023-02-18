@@ -17,6 +17,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.fromLTRB(30, 144, 30, 12),
+        padding: const EdgeInsets.fromLTRB(30, 144, 30, 16),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -25,9 +26,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             Text("Lazy morning or a busy day?",
                 style: AppTypography.textMd
                     .copyWith(fontSize: 20, fontWeight: FontWeight.w700)),
-            const SizedBox(
-              height: 4,
-            ),
             Text(
                 "Want to avoid queue and experience a \nhustle-free ordering journey.",
                 textAlign: TextAlign.center,

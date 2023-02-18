@@ -259,6 +259,13 @@ class _SearchScreenState extends State<SearchScreen> {
     }
     return Scaffold(
         appBar: AppBar(
+          leading: IconButton(
+            onPressed: () => Navigator.of(context).pop(),
+            icon: const Icon(
+              Icons.arrow_back_ios_new_rounded,
+              color: AppColors.backgroundOrange,
+            ),
+          ),
           backgroundColor: AppColors.backgroundYellow,
           leading: IconButton(
             icon: Icon(
