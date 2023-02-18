@@ -37,7 +37,7 @@ class _SearchInputState extends State<SearchInput> {
     for (int i = 0; i < searchTerms.length; i++) {
       var tmp = (await getSearchResult(searchTerms[i]));
       itemSearchResult = tmp['items'];
-      shopSearchResult = tmp['shops'];
+      shopSearchResult = tmp['shop'];
 
       for (var item in itemSearchResult) {
         items.add(item);

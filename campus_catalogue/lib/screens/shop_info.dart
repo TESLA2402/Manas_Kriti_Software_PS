@@ -3,8 +3,10 @@ import 'dart:collection';
 import 'package:campus_catalogue/constants/colors.dart';
 import 'package:campus_catalogue/constants/typography.dart';
 import 'package:campus_catalogue/models/item_model.dart';
+import 'package:campus_catalogue/services/database_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:campus_catalogue/models/shopModel.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/src/rendering/box.dart';
@@ -12,8 +14,16 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ItemCard extends StatelessWidget {
-  final ItemModel items;
-  const ItemCard({super.key, required this.items});
+  final String name;
+  final int price;
+  final String description;
+  final bool vegetarian;
+  const ItemCard(
+      {super.key,
+      required this.name,
+      required this.price,
+      required this.description,
+      required this.vegetarian});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +42,7 @@ class ItemCard extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    if (items.vegetarian)
+                    if (vegetarian)
                       Text(
                         "VEG",
                         style: AppTypography.textSm.copyWith(
@@ -46,23 +56,34 @@ class ItemCard extends StatelessWidget {
                               fontSize: 14)),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
-                      child: Text("PRICE: Rs. ${items.price}",
+                      child: Text("PRICE: Rs. ${price}",
                           style: AppTypography.textSm.copyWith(fontSize: 14)),
                     ),
                     Text(
-                      items.name,
+                      name,
                       style: AppTypography.textMd
                           .copyWith(fontSize: 20, fontWeight: FontWeight.w700),
                     ),
                     Text(
-                      items.description,
+                      description,
                       style: AppTypography.textSm
                           .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
                     )
                   ],
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    DatabaseService service = DatabaseService();
+                    final FirebaseAuth _auth = FirebaseAuth.instance;
+                    final User user = await _auth.currentUser!;
+                    ItemModel item = ItemModel(
+                        category: "xbks",
+                        description: "hey",
+                        name: name,
+                        price: price.toString(),
+                        vegetarian: vegetarian);
+                    await service.addToCart(item);
+                  },
                   child: Text("ADD TO CART"),
                   style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.backgroundOrange),
@@ -186,16 +207,10 @@ class _ShopPageState extends State<ShopPage> {
             ),
             for (var item in widget.shop.menu)
               ItemCard(
-                // name: item["name"],
-                // price: item["price"],
-                // description: item["description"],
-                // vegetarian: item["vegetarian"]
-                items: ItemModel(
-                    category: item["category"],
-                    price: item["price"],
-                    description: item["description"],
-                    vegetarian: item["vegetarian"],
-                    name: item["name"]),
+                name: item["name"],
+                price: item["price"],
+                description: item["description"],
+                vegetarian: item["vegetarian"],
               ),
           ],
         ),

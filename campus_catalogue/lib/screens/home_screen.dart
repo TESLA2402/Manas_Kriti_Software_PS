@@ -290,7 +290,7 @@ class _SearchInputState extends State<SearchInput> {
     for (int i = 0; i < searchTerms.length; i++) {
       var tmp = (await getSearchResult(searchTerms[i]));
       itemSearchResult = tmp['items'];
-      shopSearchResult = tmp['shops'];
+      shopSearchResult = tmp['shop'];
 
       for (var item in itemSearchResult) {
         final tmp = await FirebaseFirestore.instance
@@ -300,10 +300,8 @@ class _SearchInputState extends State<SearchInput> {
         items.add(tmp.data());
       }
       for (var shop in shopSearchResult) {
-        final tmp = await FirebaseFirestore.instance
-            .collection("shops")
-            .doc(shop)
-            .get();
+        final tmp =
+            await FirebaseFirestore.instance.collection("shop").doc(shop).get();
         shops.add(tmp.data());
       }
       Navigator.push(

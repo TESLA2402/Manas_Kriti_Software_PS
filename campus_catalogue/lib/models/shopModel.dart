@@ -12,7 +12,6 @@ class ShopModel {
   List menu;
   Map<String, int> rating;
 
-
   ShopModel(
       {required this.shopID,
       required this.alternatePhoneNumber,
@@ -26,7 +25,6 @@ class ShopModel {
       required this.upiId,
       required this.menu,
       required this.rating});
-
 
   Map<String, dynamic> toMap() {
     return {
@@ -58,5 +56,4 @@ class ShopModel {
         alternatePhoneNumber = sellerMap["alternate_phone_number"],
         menu = sellerMap["menu"],
         rating = sellerMap["rating"];
-
 }

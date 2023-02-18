@@ -45,25 +45,29 @@ class MyApp extends StatelessWidget {
             "name": "Pizza",
             "price": 125,
             "vegetarian": true,
-            "description": "Exotic cheesy multi level pizza"
+            "description": "Exotic cheesy multi level pizza",
+            "category": []
           },
           {
             "name": "Pizza",
             "price": 125,
             "vegetarian": false,
-            "description": "Exotic cheesy multi level pizza"
+            "description": "Exotic cheesy multi level pizza",
+            "category": []
           },
           {
             "name": "Pizza",
             "price": 125,
             "vegetarian": true,
-            "description": "Exotic cheesy multi level pizza"
+            "description": "Exotic cheesy multi level pizza",
+            "category": []
           },
           {
             "name": "Pizza",
             "price": 125,
             "vegetarian": true,
-            "description": "Exotic cheesy multi level pizza"
+            "description": "Exotic cheesy multi level pizza",
+            "category": []
           }
         ],
         rating: {
@@ -71,14 +75,13 @@ class MyApp extends StatelessWidget {
           "num_ratings": 2
         });
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      routes: {
-        '/': (context) => ShopPage(shop: shop),
-
-    );
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        routes: {
+          '/': (context) => HomeScreen(),
+        });
   }
 }

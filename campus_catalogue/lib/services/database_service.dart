@@ -1,4 +1,5 @@
 import 'package:campus_catalogue/models/buyer_model.dart';
+import 'package:campus_catalogue/models/item_model.dart';
 import 'package:campus_catalogue/models/shopModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -6,6 +7,10 @@ class DatabaseService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   addBuyer(Buyer employeeData) async {
     await _db.collection("Buyer").add(employeeData.toMap());
+  }
+
+  addToCart(ItemModel employeeData) async {
+    await _db.collection("cart").add(employeeData.toMap());
   }
 
   addShop(ShopModel employeeData) async {
@@ -38,14 +43,14 @@ class DatabaseService {
 
     List a = s.toList();
     for (int i = 0; i < a.length; i++) {
-      var p =await _db.collection('cache').doc(a[i]).get();
-      if(p.exists) {
+      var p = await _db.collection('cache').doc(a[i]).get();
+      if (p.exists) {
         _db.collection('cache').doc(a[i]).update({'list': docref.id});
       } else {
-        _db.collection('cache').add({a[i]:[docref.id]});
+        _db.collection('cache').add({
+          a[i]: [docref.id]
+        });
       }
-        
-
     }
 
     print(employeeData);
