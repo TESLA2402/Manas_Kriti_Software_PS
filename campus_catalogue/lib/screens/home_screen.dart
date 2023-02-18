@@ -147,7 +147,6 @@ class _LocationCardWrapperState extends State<LocationCardWrapper> {
         context,
         MaterialPageRoute(
             builder: (context) => SearchScreen(
-                  items: [],
                   shopResults: shopSearchResults,
                   isSearch: true,
                   title: "Explore IITG",
@@ -285,32 +284,20 @@ class _SearchInputState extends State<SearchInput> {
 
   void searchSubmit(context) async {
     searchTerms = searchController.text.split(' ');
-    Set items = {};
     Set shops = {};
     for (int i = 0; i < searchTerms.length; i++) {
       var tmp = (await getSearchResult(searchTerms[i]));
-      itemSearchResult = tmp['items'];
-      shopSearchResult = tmp['shops'];
+      shopSearchResult = tmp['list'];
 
-      for (var item in itemSearchResult) {
-        final tmp = await FirebaseFirestore.instance
-            .collection("items")
-            .doc(item)
-            .get();
-        items.add(tmp.data());
-      }
       for (var shop in shopSearchResult) {
-        final tmp = await FirebaseFirestore.instance
-            .collection("shops")
-            .doc(shop)
-            .get();
+        final tmp =
+            await FirebaseFirestore.instance.collection("shop").doc(shop).get();
         shops.add(tmp.data());
       }
       Navigator.push(
           context,
           MaterialPageRoute(
               builder: (context) => SearchScreen(
-                    items: items.toList(),
                     shopResults: shops.toList(),
                     isSearch: true,
                     title: "Explore IITG",
@@ -374,7 +361,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<List> getCampusFavouriteShops() async {
     List tmp = [];
     final shops = await FirebaseFirestore.instance
-        .collection("shops")
+        .collection("shop")
         .orderBy("rating", descending: true)
         .limit(10)
         .get();

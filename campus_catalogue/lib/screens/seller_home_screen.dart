@@ -3,6 +3,8 @@ import 'package:campus_catalogue/constants/colors.dart';
 import 'package:campus_catalogue/constants/typography.dart';
 import 'package:campus_catalogue/models/order_model.dart';
 import 'package:campus_catalogue/models/shopModel.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:campus_catalogue/services/database_service.dart';
 import 'package:flutter/material.dart';
 
 class SellerHomeScreen extends StatefulWidget {
@@ -14,14 +16,36 @@ class SellerHomeScreen extends StatefulWidget {
 }
 
 class _SellerHomeScreenState extends State<SellerHomeScreen> {
+  List<dynamic> menu = [];
+  DatabaseService service = DatabaseService();
+  Future<List<OrderModel>>? orders;
+
+  @override
+  void initState() {
+    super.initState();
+    initRetrieval();
+  }
+
+  Future<void> initRetrieval() async {
+    orders = service.retrieveOrders(widget.shop.shopID);
+  }
+
   @override
   Widget build(BuildContext context) {
+    for (var item in widget.shop.menu) {
+      Map<String, dynamic> tmp = {
+        "name": item["name"],
+        "price": item["price"],
+        "vegetarian": item["vegetarian"],
+        "description": item["description"],
+        "category": item["category"],
+      };
+
+      menu.add(tmp);
+    }
+
     int _selectedIndex = 0;
-    List<OrderModel> orders = [
-      OrderModel(buyerName: "xyz", name: "zyx", price: "200"),
-      OrderModel(buyerName: "xyz", name: "zyx", price: "200"),
-      OrderModel(buyerName: "xyz", name: "zyx", price: "200"),
-    ];
+
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.white,
@@ -127,7 +151,10 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
             ),
             Center(
               child: GestureDetector(
-                // onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ItemEditor(item: item, delete_item: delete_item))),
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => EditMenu(menu: menu))),
                 child: Container(
                   width: 340,
                   padding: const EdgeInsets.fromLTRB(20, 35, 20, 35),
@@ -154,15 +181,14 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
             SizedBox(
               height: MediaQuery.of(context).size.height,
               child: ListView.builder(
-                itemCount: orders.length,
+                itemCount: orders?.length,
                 itemBuilder: (context, index) {
                   final order = orders[index];
                   return Column(
                     children: [
                       OrderTile(
-                          buyerName: order.buyerName,
-                          name: order.buyerName,
-                          price: order.price),
+                        order: order,
+                      ),
                       SizedBox(
                         height: 10,
                       )
@@ -179,15 +205,8 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
 }
 
 class OrderTile extends StatefulWidget {
-  String name;
-  String buyerName;
-  String price;
-  OrderTile(
-      {Key? key,
-      required this.buyerName,
-      required this.name,
-      required this.price})
-      : super(key: key);
+  OrderModel order;
+  OrderTile({Key? key, required this.order}) : super(key: key);
 
   @override
   _OrderTileState createState() => _OrderTileState();
@@ -218,7 +237,7 @@ class _OrderTileState extends State<OrderTile> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Text(
-                    widget.name,
+                    widget.order.buyerPhone,
                     style: AppTypography.textMd
                         .copyWith(fontSize: 12, fontWeight: FontWeight.w500),
                   ),
@@ -227,7 +246,7 @@ class _OrderTileState extends State<OrderTile> {
                     width: MediaQuery.of(context).size.width * 0.6,
                   ),
                   Text(
-                    widget.buyerName,
+                    widget.order.buyerName,
                     style: AppTypography.textMd
                         .copyWith(fontSize: 12, fontWeight: FontWeight.w400),
                   )
@@ -294,7 +313,7 @@ class _OrderTileState extends State<OrderTile> {
                   Align(
                     alignment: Alignment.centerRight,
                     child: Text(
-                      "Rs." + widget.price,
+                      "Rs." + widget.order.totalAmount.toString(),
                       textAlign: TextAlign.end,
                       style: AppTypography.textMd
                           .copyWith(fontWeight: FontWeight.w700, fontSize: 10),
