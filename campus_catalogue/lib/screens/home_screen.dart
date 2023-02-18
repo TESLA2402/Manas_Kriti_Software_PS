@@ -43,9 +43,12 @@ class ShopCardWrapper extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
               child: ShopCard(
                   name: shops[index]["name"],
-                  imgURL: shops[index]["imgURL"],
                   rating: shops[index]["rating"],
-                  location: shops[index]["location"]),
+                  location: shops[index]["location"],
+                  menu: shops[index]["menu"],
+                  ownerName: shops[index]["owner_name"],
+                  upiID: shops[index]["upi_id"],
+                  status: shops[index]["status"]),
             );
           }),
     );
@@ -54,15 +57,21 @@ class ShopCardWrapper extends StatelessWidget {
 
 class ShopCard extends StatelessWidget {
   final String name;
-  final String imgURL;
   final String rating;
   final String location;
+  final List menu;
+  final String ownerName;
+  final String upiID;
+  final bool status;
   const ShopCard(
       {super.key,
       required this.name,
-      required this.imgURL,
       required this.rating,
-      required this.location});
+      required this.location,
+      required this.menu,
+      required this.ownerName,
+      required this.upiID,
+      required this.status});
 
   @override
   Widget build(BuildContext context) {
@@ -75,14 +84,6 @@ class ShopCard extends StatelessWidget {
           color: const Color(0xFFFFF2E0),
           child: Container(
             padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              image: DecorationImage(
-                image: AssetImage(imgURL),
-                fit: BoxFit.cover,
-                alignment: Alignment.topCenter,
-              ),
-            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.end,
@@ -137,7 +138,7 @@ class _LocationCardWrapperState extends State<LocationCardWrapper> {
   void getShopsFromLocation(shopLocation, context) async {
     List shopSearchResults = [];
     final searchResult = await FirebaseFirestore.instance
-        .collection("shops")
+        .collection("shop")
         .where("location", isEqualTo: shopLocation)
         .get();
     for (var doc in searchResult.docs) {
@@ -177,40 +178,39 @@ class _LocationCardWrapperState extends State<LocationCardWrapper> {
                     onTap: () =>
                         getShopsFromLocation("Hostel Canteen", context),
                     child: const LocationCard(
-                        name: "Hostel Canteens",
-                        imgURL: "assets/hostel_canteens.png"),
+                      name: "Hostel Canteens",
+                    ),
                   ),
                   GestureDetector(
                     onTap: () =>
                         getShopsFromLocation("Hostel Juice Centre", context),
                     child: const LocationCard(
-                        name: "Hostel Juice Centres",
-                        imgURL: "assets/core_canteens.png"),
+                      name: "Hostel Juice Centres",
+                    ),
                   ),
                   GestureDetector(
                     onTap: () =>
                         getShopsFromLocation("Market Complex", context),
                     child: const LocationCard(
-                        name: "Market Complex",
-                        imgURL: "assets/market_complex.png"),
+                      name: "Market Complex",
+                    ),
                   ),
                   GestureDetector(
                     onTap: () => getShopsFromLocation("Khokha Market", context),
                     child: const LocationCard(
-                        name: "Khokha Market",
-                        imgURL: "assets/khokha_stalls.png"),
+                      name: "Khokha Market",
+                    ),
                   ),
                   GestureDetector(
                     onTap: () => getShopsFromLocation("Food Court", context),
-                    child: const LocationCard(
-                        name: "Food Court", imgURL: "assets/food_court.png"),
+                    child: const LocationCard(name: "Food Court"),
                   ),
                   GestureDetector(
                     onTap: () =>
                         getShopsFromLocation("Swimming Pool Area", context),
                     child: const LocationCard(
-                        name: "Swimming Pool Area",
-                        imgURL: "assets/food_van.png"),
+                      name: "Swimming Pool Area",
+                    ),
                   ),
                 ]),
               ),
@@ -222,8 +222,7 @@ class _LocationCardWrapperState extends State<LocationCardWrapper> {
 
 class LocationCard extends StatelessWidget {
   final String name;
-  final String imgURL;
-  const LocationCard({super.key, required this.name, required this.imgURL});
+  const LocationCard({super.key, required this.name});
 
   @override
   Widget build(BuildContext context) {
@@ -239,7 +238,6 @@ class LocationCard extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Image.asset(imgURL),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
                   child: Text(
@@ -264,7 +262,6 @@ class SearchInput extends StatefulWidget {
 class _SearchInputState extends State<SearchInput> {
   final searchController = TextEditingController();
   List<String> searchTerms = [];
-  List itemSearchResult = [];
   List shopSearchResult = [];
 
   @override

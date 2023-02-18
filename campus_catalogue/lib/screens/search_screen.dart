@@ -100,16 +100,19 @@ class ShopCard extends StatelessWidget {
   final String name;
   final String rating;
   final String location;
+  final List menu;
+  final String ownerName;
+  final String upiID;
   final bool status;
-  final String imgURL;
-
   const ShopCard(
       {super.key,
       required this.name,
       required this.rating,
       required this.location,
-      required this.status,
-      required this.imgURL});
+      required this.menu,
+      required this.ownerName,
+      required this.upiID,
+      required this.status});
 
   @override
   Widget build(BuildContext context) {
@@ -260,8 +263,10 @@ class _SearchScreenState extends State<SearchScreen> {
                   name: shop["name"],
                   rating: shop["rating"],
                   location: shop["location"],
-                  imgURL: shop["imgURL"],
                   status: shop["status"],
+                  menu: shop["menu"],
+                  ownerName: shop["owner_name"],
+                  upiID: shop["upi_id"],
                 ),
               const ShopHeader(name: "Currently closed shops"),
               for (var shop in closedShops)
@@ -269,8 +274,10 @@ class _SearchScreenState extends State<SearchScreen> {
                   name: shop["name"],
                   rating: shop["rating"],
                   location: shop["location"],
-                  imgURL: shop["imgURL"],
                   status: shop["status"],
+                  menu: shop["menu"],
+                  ownerName: shop["owner_name"],
+                  upiID: shop["upi_id"],
                 )
             ],
           ),
