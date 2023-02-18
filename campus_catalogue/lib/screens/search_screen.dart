@@ -12,7 +12,6 @@ class SearchInput extends StatefulWidget {
 class _SearchInputState extends State<SearchInput> {
   final searchController = TextEditingController();
   List<String> searchTerms = [];
-  List itemSearchResult = [];
   List shopSearchResult = [];
 
   @override
@@ -30,33 +29,25 @@ class _SearchInputState extends State<SearchInput> {
     return searchResult;
   }
 
-  void searchSubmit() async {
+  void searchSubmit(context) async {
     searchTerms = searchController.text.split(' ');
-    Set items = {};
-    Set shops = {};
+    List shops = [];
     for (int i = 0; i < searchTerms.length; i++) {
       var tmp = (await getSearchResult(searchTerms[i]));
-      itemSearchResult = tmp['items'];
-      shopSearchResult = tmp['shops'];
+      shopSearchResult = tmp['list'];
 
-      for (var item in itemSearchResult) {
-        items.add(item);
-      }
       for (var shop in shopSearchResult) {
         shops.add(shop);
       }
 
-      items.toList();
-      shops.toList();
-
-      // Navigator.push(
-      //     context,
-      //     MaterialPageRoute(
-      //         builder: (context) => SearchScreen(
-      //               itemSearchResult: itemSearchResult,
-      //               shopSearchResult: shopSearchResult,
-      //               isSearch: true,
-      //             )));
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => SearchScreen(
+                    title: "Explore IITG",
+                    shopResults: shopSearchResult,
+                    isSearch: true,
+                  )));
     }
   }
 
@@ -72,7 +63,7 @@ class _SearchInputState extends State<SearchInput> {
                 flex: 1,
                 child: TextField(
                   controller: searchController,
-                  onSubmitted: (e) => searchSubmit(),
+                  onSubmitted: (e) => searchSubmit(context),
                   autofocus: false,
                   cursorColor: Colors.grey,
                   decoration: InputDecoration(
@@ -196,13 +187,11 @@ class ShopCard extends StatelessWidget {
 }
 
 class SearchScreen extends StatefulWidget {
-  final List items;
   final List shopResults;
   final bool isSearch;
   final String title;
   const SearchScreen(
       {super.key,
-      required this.items,
       required this.shopResults,
       required this.isSearch,
       required this.title});
@@ -232,20 +221,6 @@ class ShopHeader extends StatelessWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  // List<Map<String, dynamic>> shops = [];
-  // getShopObject(shop) async {
-  //   final tmp =
-  //       await FirebaseFirestore.instance.collection("shops").doc(shop).get();
-  //   return tmp;
-  // }
-
-  // void getShops() async {
-  //   for (var shop in widget.shopResults) {
-  //     var tmp = (await getShopObject(shop));
-  //     shops.add(tmp.data());
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     List openShops = [];

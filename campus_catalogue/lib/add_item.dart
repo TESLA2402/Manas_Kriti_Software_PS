@@ -81,15 +81,13 @@ class _ItemEditorState extends State<ItemEditor> {
   bool show_name = false;
 
   void shift_card(String category) {
-    if (widget.item['categories'].contains(category)) {
-      widget.item['categories'].remove(category);
+    if (widget.item['category'].contains(category)) {
+      widget.item['category'].remove(category);
       widget.item['unselected_categories'].add(category);
     } else {
-      widget.item['categories'].add(category);
+      widget.item['category'].add(category);
       widget.item['unselected_categories'].remove(category);
     }
-    print(widget.item['categories']);
-    print(widget.item['unselected_categories']);
     setState(() {});
   }
 
@@ -121,16 +119,15 @@ class _ItemEditorState extends State<ItemEditor> {
     if (!widget.item.containsKey('price')) {
       widget.item['price'] = 0.0;
     }
-    if (!widget.item.containsKey('veg')) widget.item['veg'] = false;
+    if (!widget.item.containsKey('vegetarian'))
+      widget.item['vegetarian'] = false;
 
-    if (!widget.item.containsKey('categories')) {
-      widget.item['categories'] = [];
+    if (!widget.item.containsKey('category')) {
+      widget.item['category'] = [];
     }
     if (!widget.item.containsKey('unselected_categories')) {
       widget.item.addAll({'unselected_categories': all_categories.toList()});
     }
-    print('Built for ');
-    print(widget.item);
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
       padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -220,14 +217,14 @@ class _ItemEditorState extends State<ItemEditor> {
                   // fillColor: Colors.black,
                   activeColor: AppColors.backgroundYellow,
 
-                  value: widget.item['veg'],
+                  value: widget.item['vegetarian'],
                   onChanged: (bool? val) {
                     setState(() {
-                      widget.item['veg'] = val;
+                      widget.item['vegetarian'] = val;
                     });
                   },
                 ),
-                const Text('Vegetarian'),
+                const Text('Vetarian'),
               ],
             ),
           ),
@@ -266,9 +263,8 @@ class _ItemEditorState extends State<ItemEditor> {
               margin: const EdgeInsets.symmetric(vertical: 10),
               color: Colors.white,
               child: Wrap(
-                  children: widget.item['categories']
-                      .toList()
-                      .map<Widget>((category) {
+                  children:
+                      widget.item['category'].toList().map<Widget>((category) {
                 return CategoryCard(
                   category: category,
                   shift_card: shift_card,
@@ -343,6 +339,7 @@ class _EditMenuState extends State<EditMenu> {
   @override
   Widget build(BuildContext context) {
     print(widget.menu.runtimeType);
+    print(widget.menu);
     return Scaffold(
       appBar: AppBar(
           backgroundColor: AppColors.backgroundYellow,
@@ -362,7 +359,7 @@ class _EditMenuState extends State<EditMenu> {
               width: MediaQuery.of(context).size.width,
               height: 30,
             ),
-            widget.menu.isEmpty
+            (widget.menu.isEmpty && widget.menu == null)
                 ? SizedBox(
                     child: Text(
                       "Empty Menu",
