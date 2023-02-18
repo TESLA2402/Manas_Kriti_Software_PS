@@ -17,7 +17,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.fromLTRB(30, 144, 30, 12),
-        padding: const EdgeInsets.fromLTRB(30, 144, 30, 16),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
