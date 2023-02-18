@@ -260,6 +260,13 @@ class _SearchScreenState extends State<SearchScreen> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: AppColors.backgroundYellow,
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back_ios_new_rounded,
+              color: AppColors.backgroundOrange,
+            ),
+            onPressed: () => Navigator.pop(context),
+          ),
           elevation: 0,
           centerTitle: true,
           title: Text("Explore IITG",
