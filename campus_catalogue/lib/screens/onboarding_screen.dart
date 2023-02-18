@@ -25,11 +25,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             Text("Lazy morning or a busy day?",
                 style: AppTypography.textMd
                     .copyWith(fontSize: 20, fontWeight: FontWeight.w700)),
-                        ElevatedButton(
-                onPressed: () {
-                  edit_shop(context: context);
-                },
-                child: Text('test')),
+                        
             const SizedBox(
               height: 4,
             ),
