@@ -83,9 +83,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       routes: {
-        '/': (context) => HomeScreen(),
+        '/': (context) => SellerHomeScreen(shop: shop),
       },
-
     );
   }
 }
