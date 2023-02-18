@@ -1,17 +1,9 @@
 import 'package:campus_catalogue/add_item.dart';
-import 'package:campus_catalogue/screens/search_screen.dart';
-import 'package:campus_catalogue/screens/onboarding_screen.dart';
-import 'package:campus_catalogue/screens/userInformation/buyer_details.dart';
-import 'package:campus_catalogue/screens/userInformation/seller_details.dart';
-import 'package:campus_catalogue/screens/userType_screen.dart';
+import 'package:campus_catalogue/screens/seller_home.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:campus_catalogue/screens/splash_screen.dart';
-import 'package:campus_catalogue/screens/home_screen.dart';
-import 'package:campus_catalogue/screens/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:campus_catalogue/add_shop.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,14 +20,6 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    List<Map<dynamic, dynamic>> t = [
-      {
-        'name': 'abc',
-        'price': 20,
-      },
-      {'name': 'def'},
-      {'name': 'zzzasdbsdfbfsg'},
-    ];
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
@@ -43,7 +27,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       routes: {
-        '/': (context) => const SplashScreen(),
+        '/': (context) => const SellerHome(),
       },
     );
   }
