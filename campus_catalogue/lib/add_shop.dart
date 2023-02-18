@@ -44,9 +44,9 @@ Future<void> edit_shop_db(shop) async {
   if (shop.containsKey('id')) {
     String id = shop['id'];
     shop.remove['id'];
-    await db.collection('shops').doc(id).set(shop);
+    await db.collection('shop').doc(id).set(shop);
   } else {
-    await db.collection('shops').add(shop);
+    await db.collection('shop').add(shop);
   }
 }
 
@@ -100,19 +100,6 @@ class _EditShopScreenState extends State<EditShop> {
   }
 }
 
-// void edit_shop({String id = ""}) async {
-//   // List<Model> list=[];
-//   Map<String, dynamic> shop = {};
-//   print("hello");
-//   var data = await db.collection("shops").get();
-//   for (int i = 0; i < data.docs.length; i++) {
-//     va xx = data.docs[0].data() as Map;
-//     print(shop.runtimeType);
-//     // shop.putIfAbsent(key, () => null)
-//   }
-//   print(shop);
-// }
-
 void test(Map<String, dynamic> shop) {
   shop.clear();
 }
@@ -123,7 +110,7 @@ void edit_shop({String id = "", required BuildContext context}) async {
   shop['menu'].add(menu);
 
   if (id != '') {
-    var data = await db.collection("shops").doc(id).get();
+    var data = await db.collection("shop").doc(id).get();
     shop = data.data()!;
   }
 
