@@ -42,13 +42,13 @@ class ShopCardWrapper extends StatelessWidget {
             return Padding(
               padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
               child: ShopCard(
-                  name: shops[index]["name"],
-                  rating: shops[index]["rating"],
+                  name: shops[index]["shop_name"],
+                  rating: "0",
                   location: shops[index]["location"],
                   menu: shops[index]["menu"],
                   ownerName: shops[index]["owner_name"],
                   upiID: shops[index]["upi_id"],
-                  status: shops[index]["status"]),
+                  status: true),
             );
           }),
     );
