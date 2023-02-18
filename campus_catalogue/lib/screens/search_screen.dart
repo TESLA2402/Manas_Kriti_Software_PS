@@ -225,15 +225,8 @@ class ShopHeader extends StatelessWidget {
 class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
-    List openShops = [];
+    List openShops = widget.shopResults;
     List closedShops = [];
-    for (var shop in widget.shopResults) {
-      if (shop["status"]) {
-        openShops.add(shop);
-      } else {
-        closedShops.add(shop);
-      }
-    }
     return Scaffold(
         appBar: AppBar(
           leading: IconButton(
@@ -260,10 +253,10 @@ class _SearchScreenState extends State<SearchScreen> {
               const ShopHeader(name: "Currently open shops"),
               for (var shop in openShops)
                 ShopCard(
-                  name: shop["name"],
+                  name: shop["shop_name"],
                   rating: shop["rating"],
                   location: shop["location"],
-                  status: shop["status"],
+                  status: true,
                   menu: shop["menu"],
                   ownerName: shop["owner_name"],
                   upiID: shop["upi_id"],
@@ -271,10 +264,10 @@ class _SearchScreenState extends State<SearchScreen> {
               const ShopHeader(name: "Currently closed shops"),
               for (var shop in closedShops)
                 ShopCard(
-                  name: shop["name"],
+                  name: shop["shop_name"],
                   rating: shop["rating"],
                   location: shop["location"],
-                  status: shop["status"],
+                  status: true,
                   menu: shop["menu"],
                   ownerName: shop["owner_name"],
                   upiID: shop["upi_id"],
