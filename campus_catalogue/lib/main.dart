@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       routes: {
-        '/': (context) => const WelcomeScreen(),
+        '/': (context) => SellerDetails(),
       },
     );
   }

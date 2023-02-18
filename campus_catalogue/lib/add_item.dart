@@ -162,6 +162,9 @@ class _ItemEditorState extends State<ItemEditor> {
             alignment: Alignment.topLeft,
           ),
           SizedBox(
+            height: 5,
+          ),
+          SizedBox(
             child: TextFormField(
                 onChanged: (name) {
                   setState(() {
@@ -174,10 +177,18 @@ class _ItemEditorState extends State<ItemEditor> {
                     filled: true,
                     fillColor: Colors.white)),
           ),
+          SizedBox(
+            height: 10,
+          ),
+
           const Align(
             child: Text('Price'),
             alignment: Alignment.topLeft,
           ),
+          SizedBox(
+            height: 5,
+          ),
+
           SizedBox(
             child: TextFormField(
                 onChanged: (price) {
@@ -195,6 +206,7 @@ class _ItemEditorState extends State<ItemEditor> {
                     filled: true,
                     fillColor: Colors.white)),
           ),
+
           Align(
             alignment: Alignment.topLeft,
             child: Row(
@@ -223,6 +235,9 @@ class _ItemEditorState extends State<ItemEditor> {
             child: Text('Description'),
             alignment: Alignment.topLeft,
           ),
+          SizedBox(
+            height: 5,
+          ),
 
           SizedBox(
             child: TextFormField(
@@ -238,6 +253,10 @@ class _ItemEditorState extends State<ItemEditor> {
                     filled: true,
                     fillColor: Colors.white)),
           ),
+          SizedBox(
+            height: 10,
+          ),
+
           const Text('Relevant Tags'),
           SizedBox(
             width: MediaQuery.of(context).size.width,
@@ -310,9 +329,9 @@ class EditMenu extends StatefulWidget {
   State<EditMenu> createState() => _EditMenuState();
 }
 
-class _EditMenuState extends State<EditMenu> {
-  int itemcount = 0;
+int itemcount = 0;
 
+class _EditMenuState extends State<EditMenu> {
   void delete_item(item) {
     widget.menu.remove(item);
     setState(() {});
@@ -376,7 +395,8 @@ class _EditMenuState extends State<EditMenu> {
                     },
                     child: Text(
                       '+Add Item',
-                      style: AppTypography.textMd.copyWith(color: AppColors.backgroundOrange),
+                      style: AppTypography.textMd
+                          .copyWith(color: AppColors.backgroundOrange),
                       // style: TextStyle(color: AppColors.backgroundOrange,
                       // fontWeight: FontWeight.bold
                       // ),
@@ -388,6 +408,11 @@ class _EditMenuState extends State<EditMenu> {
             ),
             ElevatedButton(
                 onPressed: () {
+                  for (int i = 0; i < widget.menu.length; i++) {
+                    widget.menu[i].remove('unselected_categories');
+                    widget.menu[i].remove('id');
+                    print(widget.menu[i]);
+                  }
                   Navigator.pop(context);
                 },
                 style: ElevatedButton.styleFrom(
