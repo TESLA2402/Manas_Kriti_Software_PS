@@ -180,22 +180,20 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height,
-              child: ListView.builder(
-                itemCount: orders?.length,
-                itemBuilder: (context, index) {
-                  final order = orders[index];
-                  return Column(
-                    children: [
-                      OrderTile(
-                        order: order,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      )
-                    ],
-                  );
-                },
-              ),
+              // child: ListView.builder(
+              //   itemBuilder: (context, index) {
+              //     return Column(
+              //       children: [
+              //         OrderTile(
+              //           order: order,
+              //         ),
+              //         SizedBox(
+              //           height: 10,
+              //         )
+              //       ],
+              //     );
+              //   },
+              // ),
             )
           ]),
         ),
