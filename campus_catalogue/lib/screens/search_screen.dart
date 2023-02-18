@@ -122,7 +122,6 @@ class ShopCard extends StatelessWidget {
 
     return Container(
       padding: EdgeInsets.fromLTRB(20, 0, 20, 5),
-      height: 128,
       child: Card(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
