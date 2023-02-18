@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       routes: {
-        '/': (context) => const SplashScreen(),
+        '/': (context) => SellerDetails(),
       },
     );
   }
