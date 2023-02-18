@@ -1,4 +1,5 @@
 import 'package:campus_catalogue/add_item.dart';
+import 'package:campus_catalogue/screens/cart.dart';
 import 'package:campus_catalogue/screens/onboarding_screen.dart';
 import 'package:campus_catalogue/screens/userInformation/buyer_details.dart';
 import 'package:campus_catalogue/screens/userInformation/seller_details.dart';
@@ -41,7 +42,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       routes: {
-        '/': (context) => const SplashScreen(),
+        '/': (context) => Cart(),
       },
     );
   }
