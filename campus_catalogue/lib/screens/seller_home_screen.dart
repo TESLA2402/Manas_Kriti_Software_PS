@@ -178,25 +178,25 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
               "Current Orders",
               style: AppTypography.textMd.copyWith(fontWeight: FontWeight.w700),
             ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height,
-              child: ListView.builder(
-                itemCount: orders?.length,
-                itemBuilder: (context, index) {
-                  final order = orders[index];
-                  return Column(
-                    children: [
-                      OrderTile(
-                        order: order,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      )
-                    ],
-                  );
-                },
-              ),
-            )
+            // SizedBox(
+            //   height: MediaQuery.of(context).size.height,
+            //   child: ListView.builder(
+            //     itemCount: orders?.length,
+            //     itemBuilder: (context, index) {
+            //       final order = orders[index];
+            //       return Column(
+            //         children: [
+            //           OrderTile(
+            //             order: order,
+            //           ),
+            //           SizedBox(
+            //             height: 10,
+            //           )
+            //         ],
+            //       );
+            //     },
+            //   ),
+            // )
           ]),
         ),
       ),

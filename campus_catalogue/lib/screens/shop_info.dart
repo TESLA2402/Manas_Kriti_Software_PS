@@ -86,7 +86,23 @@ class ItemCard extends StatelessWidget {
 
 class ShopPage extends StatefulWidget {
   final ShopModel shop;
-  const ShopPage({super.key, required this.shop});
+  final String name;
+  final String rating;
+  final String location;
+  final List menu;
+  final String ownerName;
+  final String upiID;
+  final bool status;
+  const ShopPage(
+      {super.key,
+      required this.shop,
+      required this.name,
+      required this.rating,
+      required this.location,
+      required this.menu,
+      required this.ownerName,
+      required this.upiID,
+      required this.status});
 
   @override
   State<ShopPage> createState() => _ShopPageState();
@@ -95,7 +111,7 @@ class ShopPage extends StatefulWidget {
 class _ShopPageState extends State<ShopPage> {
   @override
   Widget build(BuildContext context) {
-    print(widget.shop.menu);
+    print(widget.menu);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.backgroundYellow,
@@ -108,7 +124,7 @@ class _ShopPageState extends State<ShopPage> {
         ),
         elevation: 0,
         centerTitle: true,
-        title: Text(widget.shop.shopName,
+        title: Text(widget.name,
             style: AppTypography.textMd.copyWith(
                 fontSize: 20,
                 fontWeight: FontWeight.w700,
@@ -139,7 +155,7 @@ class _ShopPageState extends State<ShopPage> {
                             Icons.pin_drop_rounded,
                             size: 15,
                           ),
-                          Text(widget.shop.location,
+                          Text(widget.location,
                               style: AppTypography.textMd.copyWith(
                                   fontSize: 12, fontWeight: FontWeight.w700)),
                         ],
@@ -147,8 +163,7 @@ class _ShopPageState extends State<ShopPage> {
                       Row(
                         children: [
                           Icon(Icons.timelapse_rounded, size: 15),
-                          Text(
-                              "${widget.shop.openingTime} AM TO ${widget.shop.closingTime} PM",
+                          Text("9 AM TO 10 PM",
                               style: AppTypography.textMd.copyWith(
                                   fontSize: 12, fontWeight: FontWeight.w700)),
                         ],
@@ -156,7 +171,7 @@ class _ShopPageState extends State<ShopPage> {
                       Row(
                         children: [
                           Icon(Icons.shopping_cart, size: 15),
-                          Text("${widget.shop.menu.length} ITEMS AVAILABLE",
+                          Text("${widget.menu.length} ITEMS AVAILABLE",
                               style: AppTypography.textMd.copyWith(
                                   fontSize: 12, fontWeight: FontWeight.w700)),
                         ],
@@ -193,7 +208,7 @@ class _ShopPageState extends State<ShopPage> {
                     .copyWith(fontSize: 20, fontWeight: FontWeight.w700),
               ),
             ),
-            for (var item in widget.shop.menu)
+            for (var item in widget.menu)
               ItemCard(
                   name: item["name"],
                   price: item["price"],

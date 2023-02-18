@@ -353,9 +353,9 @@ class _SellerDetailsState extends State<SellerDetails> {
                     builder: (context) => SellerAdditional(
                         shopName: _shopNameController.text,
                         closingTime: _closingTimeController.text,
-                        location: selectedLocation!,
+                        location: selectedLocation,
                         openingTime: _openingTimeController.text,
-                        shopType: selectedShopType!)),
+                        shopType: selectedShopType)),
               );
             },
             child: Row(
