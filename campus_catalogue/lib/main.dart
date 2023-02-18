@@ -80,7 +80,7 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         '/': (context) => ShopPage(shop: shop),
-      },
+
     );
   }
 }

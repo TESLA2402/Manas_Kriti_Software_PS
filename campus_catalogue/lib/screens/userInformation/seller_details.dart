@@ -526,6 +526,8 @@ class _SellerAdditionalState extends State<SellerAdditional> {
                     upiId: _upiIdController.text,
                     menu: menu,
                     rating: {"rating": 0, "num_ratings": 2});
+
+
                 await service.addShop(shop);
                 Navigator.push(
                   context,
