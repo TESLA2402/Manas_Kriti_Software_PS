@@ -1,16 +1,46 @@
-# campus_catalogue
 
-A new Flutter project.
+# Kriti Software Development PS
 
-## Getting Started
+## Explore IITG
 
-This project is a starting point for a Flutter application.
+## How to run
+- Install the .apk file uploaded and run on an android device
+- Alternatively, you can build your own release by cloning the github repo, and running 
+```
+flutter build apk --release
+```
+- Make sure you have Flutter SDK and Android Studio installed
 
-A few resources to get you started if this is your first Flutter project:
+## Pages
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+#### <ul>
+- Onboarding Screen
+- Login & Signup Screens
+- shopkeeper side
+  - Home page
+  - Edit Menu page
+  - Orders page
+- user side
+  - Home page
+  - Search Result page
+  - Shop Info Page
+  - Cart page
+</ul>
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## TechStack Used
+##### <ul><li>Frontend: Flutter</li><li>Backend: Firebase</li></ul>
+
+# App over website
+- Looking at the feasibility of the problem, most of the people use mobile apps over websites for food ordering apps
+- We chose dart/flutter over Kotlin as it is cross platform language/framework, so our app can have same codebase but can run over both iOS as well as android
+
+# Database Design
+![alt text](./assets/database_schema.jpeg)
+
+# Design Figma Link
+Here is the [Figma link](https://www.figma.com/file/o0DM8QUvXXjSW8mszgayDA/Kriti-YO-Manas!?node-id=0%3A1&t=VngK01yZM4kRlAaY-1)
+
+```
+Submitted by:
+MANAS HOSTEL
+```
