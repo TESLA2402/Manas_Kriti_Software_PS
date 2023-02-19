@@ -41,7 +41,7 @@ flutter build apk --release
 Here is the [Figma link](https://www.figma.com/file/o0DM8QUvXXjSW8mszgayDA/Kriti-YO-Manas!?node-id=0%3A1&t=VngK01yZM4kRlAaY-1)
 
 # Drive Link
-Here is the [Drive link](https://drive.google.com/drive/folders/1RU_6UtW_Y9GMOooF2_r7MN92DvkkMxym?usp=share_link)
+Here is the [Drive link](https://drive.google.com/drive/folders/13RyhSZ6pYDM1VEJlHYRkSBidqHLEkXYB?usp=share_link)
 ```
 Submitted by:
 MANAS HOSTEL
