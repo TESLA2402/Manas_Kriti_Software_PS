@@ -35,7 +35,7 @@ flutter build apk --release
 - We chose dart/flutter over Kotlin as it is cross platform language/framework, so our app can have same codebase but can run over both iOS as well as android
 
 # Database Design
-![alt text](./assets/database_schema.jpeg)
+![alt text](./campus_catalogue/assets/database_schema.jpeg)
 
 # Design Figma Link
 Here is the [Figma link](https://www.figma.com/file/o0DM8QUvXXjSW8mszgayDA/Kriti-YO-Manas!?node-id=0%3A1&t=VngK01yZM4kRlAaY-1)
