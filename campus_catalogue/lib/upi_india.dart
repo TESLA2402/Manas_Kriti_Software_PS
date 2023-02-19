@@ -1,8 +1,12 @@
 import 'package:campus_catalogue/models/shopModel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:upi_india/upi_india.dart';
 
 class UpiScreen extends StatefulWidget {
+  double amount;
+  UpiScreen({Key? key, required this.amount}) : super(key: key);
+
   @override
   _UpiScreenState createState() => _UpiScreenState();
 }
@@ -23,7 +27,6 @@ class _UpiScreenState extends State<UpiScreen> {
   );
   // <---- Test ---->
   //ShopModel shop = ShopModel(upi_id: "@example", shop_name: 'Manas');
-  double amount = 100.0;
   // <---- Test ---->
   @override
   void initState() {
@@ -40,11 +43,11 @@ class _UpiScreenState extends State<UpiScreen> {
   Future<UpiResponse> initiateTransaction(UpiApp app) async {
     return _upiIndia.startTransaction(
       app: app,
-      receiverUpiId: "@example",
-      receiverName: "shop_name",
+      receiverUpiId: "a.patanwal@paytm",
+      receiverName: "example",
       transactionRefId: 'TestingUpiIndiaPlugin',
       transactionNote: 'Not actual. Just an example.',
-      amount: amount,
+      amount: widget.amount,
     );
   }
 

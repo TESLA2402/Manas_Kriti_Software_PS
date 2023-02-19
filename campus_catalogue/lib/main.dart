@@ -29,59 +29,14 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    ShopModel shop = ShopModel(
-        shopID: "QYXb7w0qYkffc6OLTpWCwABPw123",
-        alternatePhoneNumber: "1234567891",
-        closingTime: "9",
-        location: "Khokha Stalls",
-        openingTime: "9",
-        ownerName: "Bittu Pandey",
-        phoneNumber: "8826031449",
-        shopName: "Adrika Eats",
-        shopType: "Restaurant",
-        upiId: "bittu@upi",
-        menu: [
-          {
-            "name": "Pizza",
-            "price": 125,
-            "vegetarian": true,
-            "description": "Exotic cheesy multi level pizza",
-            "category": []
-          },
-          {
-            "name": "Pizza",
-            "price": 125,
-            "vegetarian": false,
-            "description": "Exotic cheesy multi level pizza",
-            "category": []
-          },
-          {
-            "name": "Pizza",
-            "price": 125,
-            "vegetarian": true,
-            "description": "Exotic cheesy multi level pizza",
-            "category": []
-          },
-          {
-            "name": "Pizza",
-            "price": 125,
-            "vegetarian": true,
-            "description": "Exotic cheesy multi level pizza",
-            "category": []
-          }
-        ],
-        rating: {
-          "rating": 0,
-          "num_ratings": 2
-        });
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'campus_catalogue',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       routes: {
-        '/': (context) => HomeScreen(),
+        '/': (context) => SplashScreen(),
       },
     );
   }
