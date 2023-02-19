@@ -47,7 +47,9 @@ class DatabaseService {
     for (int i = 0; i < a.length; i++) {
       var p = await _db.collection('cache').doc(a[i]).get();
       if (p.exists) {
-        _db.collection('cache').doc(a[i]).update({'list': docref.id});
+        _db.collection('cache').doc(a[i]).set({
+          'list': FieldValue.arrayUnion([docref.id])
+        });
       } else {
         _db.collection('cache').add({
           a[i]: [docref.id]

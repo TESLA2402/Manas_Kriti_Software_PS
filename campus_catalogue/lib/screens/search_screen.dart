@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:campus_catalogue/constants/colors.dart';
 import 'package:campus_catalogue/constants/typography.dart';
+import 'package:campus_catalogue/screens/shop_info.dart';
 
 class SearchInput extends StatefulWidget {
   const SearchInput({super.key});
@@ -244,6 +245,7 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     List openShops = widget.shopResults;
     List closedShops = [];
+    print(widget.shopResults);
     return Scaffold(
         appBar: AppBar(
           leading: IconButton(
@@ -269,14 +271,27 @@ class _SearchScreenState extends State<SearchScreen> {
               const SearchInput(),
               const ShopHeader(name: "Currently open shops"),
               for (var shop in openShops)
-                ShopCard(
-                  name: shop["shop_name"],
-                  rating: "0",
-                  location: shop["location"],
-                  status: true,
-                  menu: shop["menu"],
-                  ownerName: shop["owner_name"],
-                  upiID: shop["upi_id"],
+                GestureDetector(
+                  onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ShopPage(
+                              name: shop["shop_name"],
+                              rating: "0",
+                              location: shop["location"],
+                              menu: shop["menu"],
+                              ownerName: shop["owner_name"],
+                              upiID: shop["upi_id"],
+                              status: true))),
+                  child: ShopCard(
+                    name: shop["shop_name"],
+                    rating: "0",
+                    location: shop["location"],
+                    status: true,
+                    menu: shop["menu"],
+                    ownerName: shop["owner_name"],
+                    upiID: shop["upi_id"],
+                  ),
                 ),
               const ShopHeader(name: "Currently closed shops"),
               for (var shop in closedShops)
