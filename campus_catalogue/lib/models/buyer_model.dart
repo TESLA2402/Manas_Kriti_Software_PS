@@ -1,3 +1,5 @@
+import 'package:campus_catalogue/models/cart_model.dart';
+import 'package:campus_catalogue/screens/cart.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Buyer {
@@ -7,9 +9,11 @@ class Buyer {
   final String email;
   final String phone;
   final String address;
+  CartModel? cart;
 
   Buyer(
-      {required this.user_id,
+      {this.cart,
+      required this.user_id,
       required this.name,
       required this.userName,
       required this.email,
@@ -23,7 +27,8 @@ class Buyer {
       'email': email,
       'phone': phone,
       'address': address,
-      'user_id': user_id
+      'user_id': user_id,
+      'cart_items': cart
     };
   }
 
@@ -33,7 +38,8 @@ class Buyer {
         email = buyerMap["email"],
         phone = buyerMap["phone"],
         address = buyerMap["address"],
-        user_id = buyerMap["user_id"];
+        user_id = buyerMap["user_id"],
+        cart = buyerMap["cart_items"];
 
   Buyer.fromDocumentSnapshot(DocumentSnapshot<Map<String, dynamic>> doc)
       : user_id = doc.data()!["user_id"],
@@ -41,5 +47,6 @@ class Buyer {
         userName = doc.data()!['user_name'],
         email = doc.data()!['email'],
         phone = doc.data()!['phone'],
-        address = doc.data()!['address'];
+        address = doc.data()!['address'],
+        cart = doc.data()!['cart_items'];
 }
