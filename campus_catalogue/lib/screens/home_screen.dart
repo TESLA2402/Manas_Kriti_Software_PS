@@ -1,3 +1,4 @@
+import 'package:campus_catalogue/screens/cart.dart';
 import 'package:campus_catalogue/screens/search_screen.dart';
 import 'package:campus_catalogue/screens/shop_info.dart';
 import 'package:flutter/material.dart';
@@ -371,6 +372,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  int _selectedIndex = 0;
   Future<List> getCampusFavouriteShops() async {
     List tmp = [];
     final shops = await FirebaseFirestore.instance
@@ -405,40 +407,46 @@ class _HomeScreenState extends State<HomeScreen> {
                   color: AppColors.backgroundOrange)),
         ),
         backgroundColor: AppColors.backgroundYellow,
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              const SearchInput(),
-              const LocationCardWrapper(),
-              const ShopHeader(name: "Campus Favourites"),
-              FutureBuilder<List<dynamic>>(
-                  future: getCampusFavouriteShops(),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<List<dynamic>> snapshot) {
-                    if (snapshot.hasData) {
-                      final campusFavs = snapshot.data!;
-                      return ShopCardWrapper(shops: campusFavs);
-                    } else {
-                      return const CircularProgressIndicator(
-                          color: AppColors.backgroundOrange);
-                    }
-                  }),
-              const ShopHeader(name: "Recommended"),
-              FutureBuilder<List<dynamic>>(
-                  future: getCampusFavouriteShops(),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<List<dynamic>> snapshot) {
-                    if (snapshot.hasData) {
-                      final campusFavs = snapshot.data!;
-                      return ShopCardWrapper(shops: campusFavs);
-                    } else {
-                      return const CircularProgressIndicator(
-                          color: AppColors.backgroundOrange);
-                    }
-                  }),
-              // ShopCardWrapper(shops: campusFavouriteShops),
-            ],
-          ),
+        body: IndexedStack(
+          index: _selectedIndex,
+          children: [
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  const SearchInput(),
+                  const LocationCardWrapper(),
+                  const ShopHeader(name: "Campus Favourites"),
+                  FutureBuilder<List<dynamic>>(
+                      future: getCampusFavouriteShops(),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<List<dynamic>> snapshot) {
+                        if (snapshot.hasData) {
+                          final campusFavs = snapshot.data!;
+                          return ShopCardWrapper(shops: campusFavs);
+                        } else {
+                          return const CircularProgressIndicator(
+                              color: AppColors.backgroundOrange);
+                        }
+                      }),
+                  const ShopHeader(name: "Recommended"),
+                  FutureBuilder<List<dynamic>>(
+                      future: getCampusFavouriteShops(),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<List<dynamic>> snapshot) {
+                        if (snapshot.hasData) {
+                          final campusFavs = snapshot.data!;
+                          return ShopCardWrapper(shops: campusFavs);
+                        } else {
+                          return const CircularProgressIndicator(
+                              color: AppColors.backgroundOrange);
+                        }
+                      }),
+                  // ShopCardWrapper(shops: campusFavouriteShops),
+                ],
+              ),
+            ),
+            Cart(),
+          ],
         ),
         bottomNavigationBar: BottomNavigationBar(
           selectedItemColor: AppColors.backgroundOrange,
@@ -448,14 +456,15 @@ class _HomeScreenState extends State<HomeScreen> {
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.history_rounded),
-              label: 'Orders',
-            ),
-            BottomNavigationBarItem(
               icon: Icon(Icons.shopping_cart),
               label: 'Cart',
             ),
           ],
+          onTap: (index) {
+            setState(() {
+              _selectedIndex = index;
+            });
+          },
         ));
   }
 }

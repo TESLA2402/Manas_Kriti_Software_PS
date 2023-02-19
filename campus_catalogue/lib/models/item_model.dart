@@ -1,5 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class ItemModel {
-  String shopID;
   String name;
   String price;
   String category;
@@ -7,8 +8,7 @@ class ItemModel {
   String description;
 
   ItemModel(
-      {required this.shopID,
-      required this.category,
+      {required this.category,
       required this.description,
       required this.name,
       required this.price,
@@ -16,7 +16,6 @@ class ItemModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'shop_id': shopID,
       'category': category,
       'description': description,
       'name': name,
@@ -26,10 +25,16 @@ class ItemModel {
   }
 
   ItemModel.fromMap(Map<String, dynamic> sellerMap)
-      : shopID = sellerMap["shop_id"],
-        category = sellerMap["category"],
+      : category = sellerMap["category"],
         description = sellerMap["description"],
         name = sellerMap["name"],
         price = sellerMap["price"],
         vegetarian = sellerMap["vegetarian"];
+
+  ItemModel.fromDocumentSnapshot(DocumentSnapshot<Map<String, dynamic>> doc)
+      : name = doc.data()!["name"],
+        description = doc.data()!["description"],
+        category = doc.data()!["category"],
+        price = doc.data()!["price"],
+        vegetarian = doc.data()!["vegetarian"];
 }

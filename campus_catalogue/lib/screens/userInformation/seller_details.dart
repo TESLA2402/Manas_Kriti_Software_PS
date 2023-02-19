@@ -528,7 +528,6 @@ class _SellerAdditionalState extends State<SellerAdditional> {
                     status: true,
                     rating: {"rating": 0, "num_ratings": 2});
 
-
                 await service.addShop(shop);
                 Navigator.push(
                   context,
