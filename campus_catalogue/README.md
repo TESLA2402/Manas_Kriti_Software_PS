@@ -4,7 +4,7 @@
 ## Explore IITG
 
 ## How to run
-- Install the .apk file uploaded and run on an android device
+- Install the .apk file uploaded in the drive link submitter and run on an android device
 - Alternatively, you can build your own release by cloning the github repo, and running 
 ```
 flutter build apk --release
@@ -40,6 +40,8 @@ flutter build apk --release
 # Design Figma Link
 Here is the [Figma link](https://www.figma.com/file/o0DM8QUvXXjSW8mszgayDA/Kriti-YO-Manas!?node-id=0%3A1&t=VngK01yZM4kRlAaY-1)
 
+# Drive Link
+Here is the [Drive link](https://drive.google.com/drive/folders/1RU_6UtW_Y9GMOooF2_r7MN92DvkkMxym?usp=share_link)
 ```
 Submitted by:
 MANAS HOSTEL
