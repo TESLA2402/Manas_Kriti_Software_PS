@@ -1,3 +1,4 @@
+import 'package:campus_catalogue/screens/shop_info.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:campus_catalogue/constants/colors.dart';
@@ -124,67 +125,83 @@ class ShopCard extends StatelessWidget {
       _status = "Closed";
     }
 
-    return Container(
-      padding: EdgeInsets.fromLTRB(20, 0, 20, 5),
-      child: Card(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          color: const Color(0xFFFFF2E0),
-          child: Container(
-            padding: const EdgeInsets.all(10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      name,
-                      style: AppTypography.textMd
-                          .copyWith(fontSize: 20, fontWeight: FontWeight.w700),
-                    ),
-                    Row(
-                      children: [
-                        const Icon(Icons.pin_drop, size: 18),
-                        Text(location,
-                            style: AppTypography.textSm.copyWith(
-                                fontSize: 12, fontWeight: FontWeight.w400)),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        const Icon(Icons.door_back_door_rounded, size: 18),
-                        Text(_status,
-                            style: AppTypography.textSm.copyWith(
-                                fontSize: 10, fontWeight: FontWeight.normal)),
-                      ],
-                    ),
-                    Container(
-                        width: 40,
-                        padding: const EdgeInsets.all(2),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: const Color(0xFFFFFEF6)),
-                        child: Row(
-                          children: [
-                            Text(
-                              rating,
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ShopPage(
+                  name: name,
+                  rating: "0",
+                  location: location,
+                  menu: menu,
+                  ownerName: ownerName,
+                  upiID: upiID,
+                  status: status)),
+        );
+      },
+      child: Container(
+        padding: EdgeInsets.fromLTRB(20, 0, 20, 5),
+        child: Card(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            color: const Color(0xFFFFF2E0),
+            child: Container(
+              padding: const EdgeInsets.all(10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        name,
+                        style: AppTypography.textMd.copyWith(
+                            fontSize: 20, fontWeight: FontWeight.w700),
+                      ),
+                      Row(
+                        children: [
+                          const Icon(Icons.pin_drop, size: 18),
+                          Text(location,
                               style: AppTypography.textSm.copyWith(
-                                  fontSize: 15, fontWeight: FontWeight.w700),
-                            ),
-                            const Icon(
-                              Icons.star,
-                              size: 15,
-                            )
-                          ],
-                        ))
-                  ],
-                ),
-                Image.asset("assets/temp.png")
-              ],
-            ),
-          )),
+                                  fontSize: 12, fontWeight: FontWeight.w400)),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          const Icon(Icons.door_back_door_rounded, size: 18),
+                          Text(_status,
+                              style: AppTypography.textSm.copyWith(
+                                  fontSize: 10, fontWeight: FontWeight.normal)),
+                        ],
+                      ),
+                      Container(
+                          width: 40,
+                          padding: const EdgeInsets.all(2),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              color: const Color(0xFFFFFEF6)),
+                          child: Row(
+                            children: [
+                              Text(
+                                rating,
+                                style: AppTypography.textSm.copyWith(
+                                    fontSize: 15, fontWeight: FontWeight.w700),
+                              ),
+                              const Icon(
+                                Icons.star,
+                                size: 15,
+                              )
+                            ],
+                          ))
+                    ],
+                  ),
+                  Image.asset("assets/temp.png")
+                ],
+              ),
+            )),
+      ),
     );
   }
 }

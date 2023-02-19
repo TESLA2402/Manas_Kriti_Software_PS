@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class ItemModel {
   String name;
   String price;
@@ -28,4 +30,11 @@ class ItemModel {
         name = sellerMap["name"],
         price = sellerMap["price"],
         vegetarian = sellerMap["vegetarian"];
+
+  ItemModel.fromDocumentSnapshot(DocumentSnapshot<Map<String, dynamic>> doc)
+      : name = doc.data()!["name"],
+        description = doc.data()!["description"],
+        category = doc.data()!["category"],
+        price = doc.data()!["price"],
+        vegetarian = doc.data()!["vegetarian"];
 }

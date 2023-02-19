@@ -1,7 +1,10 @@
 import 'package:campus_catalogue/constants/colors.dart';
 import 'package:campus_catalogue/constants/typography.dart';
+import 'package:campus_catalogue/models/cart_model.dart';
 import 'package:campus_catalogue/models/item_model.dart';
 import 'package:campus_catalogue/models/shopModel.dart';
+import 'package:campus_catalogue/services/database_service.dart';
+import 'package:campus_catalogue/upi_india.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:quantity_input/quantity_input.dart';
@@ -16,6 +19,24 @@ class Cart extends StatefulWidget {
 }
 
 class _CartState extends State<Cart> {
+  DatabaseService service = DatabaseService();
+  Future<List<ItemModel>>? items;
+  List<ItemModel>? reteriveditems;
+  double totalPrice = 0;
+  String upiId = "";
+  String shopName = "";
+  @override
+  void initState() {
+    super.initState();
+    _initRetrieval();
+  }
+
+  Future<void> _initRetrieval() async {
+    items = service.retrieveCart();
+    reteriveditems = await service.retrieveCart();
+    //print(reteriveditems);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,33 +46,58 @@ class _CartState extends State<Cart> {
           children: [
             Row(
               children: [
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: const Icon(
-                        Icons.keyboard_arrow_left,
-                        size: 32,
-                        color: Color(0xFFFC8019),
-                      )),
-                ),
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: Text(
-                    "Cart",
-                    textAlign: TextAlign.center,
-                    style:
-                        AppTypography.textMd.copyWith(color: Color(0xFFFC8019)),
-                  ),
-                )
+                // Align(
+                //   alignment: Alignment.topLeft,
+                //   child: IconButton(
+                //       onPressed: () {
+                //         Navigator.pop(context);
+                //       },
+                //       icon: const Icon(
+                //         Icons.keyboard_arrow_left,
+                //         size: 32,
+                //         color: Color(0xFFFC8019),
+                //       )),
+                // ),
+                // Align(
+                //   alignment: Alignment.topCenter,
+                //   child: Text(
+                //     "Cart",
+                //     textAlign: TextAlign.center,
+                //     style:
+                //         AppTypography.textMd.copyWith(color: Color(0xFFFC8019)),
+                //   ),
+                // )
               ],
             ),
             const SizedBox(
               height: 28,
             ),
-            ItemCard(),
+            SizedBox(
+              height: 200,
+              child: FutureBuilder(
+                  future: items,
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<ItemModel>> snapshot) {
+                    if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                      final items = snapshot.data!;
+                      totalPrice = 0;
+
+                      for (var items in items) {
+                        totalPrice += double.parse(items.price);
+                      }
+                      return ListView.separated(
+                          itemBuilder: (context, index) {
+                            return ItemCard(item: reteriveditems![index]);
+                          },
+                          separatorBuilder: (context, index) => const SizedBox(
+                                height: 10,
+                              ),
+                          itemCount: reteriveditems!.length);
+                    } else {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                  }),
+            ),
             Container(
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(6),
@@ -59,14 +105,26 @@ class _CartState extends State<Cart> {
               child: Column(
                 children: [
                   Row(
-                    children: [Text("Grand total"), Spacer(), Text("Rs 200")],
+                    children: [
+                      Text("Grand total"),
+                      Spacer(),
+                      Text(totalPrice.toString())
+                    ],
                   ),
                 ],
               ),
             ),
             Spacer(),
             GestureDetector(
-              onTap: () async {},
+              onTap: () async {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => UpiScreen(
+                            amount: totalPrice,
+                          )),
+                );
+              },
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
@@ -99,9 +157,8 @@ class _CartState extends State<Cart> {
 }
 
 class ItemCard extends StatefulWidget {
-  ItemCard({
-    Key? key,
-  }) : super(key: key);
+  ItemModel item;
+  ItemCard({Key? key, required this.item}) : super(key: key);
 
   @override
   _ItemCardState createState() => _ItemCardState();
@@ -111,12 +168,7 @@ class _ItemCardState extends State<ItemCard> {
   @override
   Widget build(BuildContext context) {
     int quantity = 0;
-    ItemModel item = ItemModel(
-        category: "category",
-        description: "description",
-        name: "name",
-        price: "price",
-        vegetarian: true);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -138,7 +190,7 @@ class _ItemCardState extends State<ItemCard> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    item.name,
+                    widget.item.name,
                     style: AppTypography.textSm
                         .copyWith(fontSize: 12, fontWeight: FontWeight.w700),
                   ),
@@ -146,7 +198,7 @@ class _ItemCardState extends State<ItemCard> {
                     height: 2,
                   ),
                   Text(
-                    "PRICE:" + item.price,
+                    "PRICE:" + widget.item.price,
                     style: AppTypography.textSm.copyWith(
                       fontSize: 10,
                     ),

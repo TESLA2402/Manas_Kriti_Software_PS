@@ -226,7 +226,6 @@ class _ShopPageState extends State<ShopPage> {
                   price: item["price"],
                   description: item["description"],
                   vegetarian: item["veg"]),
-
           ],
         ),
       ),
