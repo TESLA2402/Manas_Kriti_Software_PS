@@ -41,7 +41,7 @@ class DatabaseService {
     s.addAll(employeeData.shopName.toString().split(' '));
 
     DocumentReference docref =
-        await _db.collection("shops").add(employeeData.toMap());
+        await _db.collection("shop").add(employeeData.toMap());
 
     List a = s.toList();
     for (int i = 0; i < a.length; i++) {
