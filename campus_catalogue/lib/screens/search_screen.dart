@@ -105,25 +105,24 @@ class ShopCard extends StatelessWidget {
   final List menu;
   final String ownerName;
   final String upiID;
-  final bool status;
-  const ShopCard(
-      {super.key,
-      required this.name,
-      required this.rating,
-      required this.location,
-      required this.menu,
-      required this.ownerName,
-      required this.upiID,
-      required this.status});
+  const ShopCard({
+    super.key,
+    required this.name,
+    required this.rating,
+    required this.location,
+    required this.menu,
+    required this.ownerName,
+    required this.upiID,
+  });
 
   @override
   Widget build(BuildContext context) {
     String _status;
-    if (status) {
-      _status = "Open";
-    } else {
-      _status = "Closed";
-    }
+    // if (status) {
+    //   _status = "Open";
+    // } else {
+    //   _status = "Closed";
+    // }
 
     return GestureDetector(
       onTap: () {
@@ -131,13 +130,13 @@ class ShopCard extends StatelessWidget {
           context,
           MaterialPageRoute(
               builder: (context) => ShopPage(
-                  name: name,
-                  rating: "0",
-                  location: location,
-                  menu: menu,
-                  ownerName: ownerName,
-                  upiID: upiID,
-                  status: status)),
+                    name: name,
+                    rating: "0",
+                    location: location,
+                    menu: menu,
+                    ownerName: ownerName,
+                    upiID: upiID,
+                  )),
         );
       },
       child: Container(
@@ -171,9 +170,9 @@ class ShopCard extends StatelessWidget {
                       Row(
                         children: [
                           const Icon(Icons.door_back_door_rounded, size: 18),
-                          Text(_status,
-                              style: AppTypography.textSm.copyWith(
-                                  fontSize: 10, fontWeight: FontWeight.normal)),
+                          // Text(_status,
+                          //     style: AppTypography.textSm.copyWith(
+                          //         fontSize: 10, fontWeight: FontWeight.normal)),
                         ],
                       ),
                       Container(
@@ -276,18 +275,18 @@ class _SearchScreenState extends State<SearchScreen> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => ShopPage(
-                              name: shop["shop_name"],
-                              rating: "0",
-                              location: shop["location"],
-                              menu: shop["menu"],
-                              ownerName: shop["owner_name"],
-                              upiID: shop["upi_id"],
-                              status: true))),
+                                name: shop["shop_name"],
+                                rating: "0",
+                                location: shop["location"],
+                                menu: shop["menu"],
+                                ownerName: shop["owner_name"],
+                                upiID: shop["upi_id"],
+                              ))),
                   child: ShopCard(
                     name: shop["shop_name"],
                     rating: "0",
                     location: shop["location"],
-                    status: true,
+                    //status: true,
                     menu: shop["menu"],
                     ownerName: shop["owner_name"],
                     upiID: shop["upi_id"],
@@ -299,7 +298,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   name: shop["shop_name"],
                   rating: "0",
                   location: shop["location"],
-                  status: true,
+                  //status: true,
                   menu: shop["menu"],
                   ownerName: shop["owner_name"],
                   upiID: shop["upi_id"],

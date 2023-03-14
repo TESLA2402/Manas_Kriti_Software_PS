@@ -104,17 +104,16 @@ class ShopPage extends StatefulWidget {
   final List menu;
   final String ownerName;
   final String upiID;
-  final bool status;
-  const ShopPage(
-      {super.key,
-      this.shop,
-      required this.name,
-      required this.rating,
-      required this.location,
-      required this.menu,
-      required this.ownerName,
-      required this.upiID,
-      required this.status});
+  const ShopPage({
+    super.key,
+    this.shop,
+    required this.name,
+    required this.rating,
+    required this.location,
+    required this.menu,
+    required this.ownerName,
+    required this.upiID,
+  });
 
   @override
   State<ShopPage> createState() => _ShopPageState();

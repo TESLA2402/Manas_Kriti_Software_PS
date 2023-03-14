@@ -48,13 +48,13 @@ class ShopCardWrapper extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         builder: (context) => ShopPage(
-                            name: shops[index]["shop_name"],
-                            rating: "0",
-                            location: shops[index]["location"],
-                            menu: shops[index]["menu"],
-                            ownerName: shops[index]["owner_name"],
-                            upiID: shops[index]["upi_id"],
-                            status: true))),
+                              name: shops[index]["shop_name"],
+                              rating: "0",
+                              location: shops[index]["location"],
+                              menu: shops[index]["menu"],
+                              ownerName: shops[index]["owner_name"],
+                              upiID: shops[index]["upi_id"],
+                            ))),
                 child: ShopCard(
                     name: shops[index]["shop_name"],
                     rating: "0",
