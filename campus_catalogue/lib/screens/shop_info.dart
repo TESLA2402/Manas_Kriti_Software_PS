@@ -15,7 +15,7 @@ import 'package:image_picker/image_picker.dart';
 
 class ItemCard extends StatelessWidget {
   final String name;
-  final double price;
+  final num price;
   final String description;
   final bool vegetarian;
   const ItemCard(
@@ -29,14 +29,14 @@ class ItemCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.fromLTRB(20, 0, 20, 5),
-      child: Card(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          color: const Color(0xFFFFF2E0),
+      child: Container(
+          decoration: BoxDecoration(
+              color: const Color(0xFFFFF2E0),
+              borderRadius: BorderRadius.circular(10)),
           child: Container(
             padding: const EdgeInsets.all(10),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Column(
@@ -71,6 +71,7 @@ class ItemCard extends StatelessWidget {
                     )
                   ],
                 ),
+                Spacer(),
                 ElevatedButton(
                   onPressed: () async {
                     DatabaseService service = DatabaseService();

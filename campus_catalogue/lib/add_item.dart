@@ -42,12 +42,10 @@ class CategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         margin: const EdgeInsets.symmetric(horizontal: 3, vertical: 5),
-        // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
             color: Colors.white,
             border: Border.all(color: AppColors.backgroundOrange)),
-        // color: is_selected ? AppColors.signIn : Colors.white,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 5),
           child: Row(
@@ -76,7 +74,6 @@ class ItemEditor extends StatefulWidget {
 }
 
 class _ItemEditorState extends State<ItemEditor> {
-  // bool non_vegetarian = false;
   XFile? sampleImage;
   bool show_name = false;
 
@@ -394,9 +391,6 @@ class _EditMenuState extends State<EditMenu> {
                       '+Add Item',
                       style: AppTypography.textMd
                           .copyWith(color: AppColors.backgroundOrange),
-                      // style: TextStyle(color: AppColors.backgroundOrange,
-                      // fontWeight: FontWeight.bold
-                      // ),
                     )),
               ),
             ),

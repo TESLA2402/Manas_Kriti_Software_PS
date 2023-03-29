@@ -68,16 +68,9 @@ class _EditShopScreenState extends State<EditShop> {
       ),
       body: Column(
         children: [
-          // to add: id,name,owner name,phone,payment id,menu,open time,close time,location,images
           const Align(alignment: Alignment.topLeft, child: Text('Shop Name')),
           TextFormField(),
           const Align(alignment: Alignment.topLeft, child: Text('Shop Type')),
-          // DropdownButton(items: [
-          //   DropdownMenuItem(child: Text('abc')),
-          //   DropdownMenuItem(child: Text('abc')),
-          //   DropdownMenuItem(child: Text('abc')),
-          //   ], onChanged: null),
-
           ElevatedButton(
               child: const Text('Add Menu'),
               onPressed: () =>
@@ -85,15 +78,10 @@ class _EditShopScreenState extends State<EditShop> {
           ElevatedButton(
             child: const Text("Done"),
             onPressed: () {
-              // widget.shop.remove('categories');
-              // widget.shop.remove('unselected_categories');
-              // widget.shop['categories'] = widget.shop['categories'].toList();
-              // widget.shop['unselected_categories'] = widget.shop['unselected_categories'].toList();
               edit_shop_db(widget.shop);
               Navigator.pop(context);
             },
           )
-          // onPressed: () => add_to_database('shops', {'name': 'hello'})),
         ],
       ),
     );
