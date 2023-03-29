@@ -41,7 +41,7 @@ class OrderWrapper extends StatelessWidget {
 }
 
 class SellerHomeScreen extends StatefulWidget {
-  ShopModel shop;
+  final ShopModel shop;
   SellerHomeScreen({Key? key, required this.shop}) : super(key: key);
 
   @override
@@ -252,7 +252,7 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
 }
 
 class OrderTile extends StatefulWidget {
-  OrderModel? order;
+  final OrderModel? order;
   final String buyerPhone;
   final String buyerName;
   final String txnId;

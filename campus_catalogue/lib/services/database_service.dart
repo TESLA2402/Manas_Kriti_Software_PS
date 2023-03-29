@@ -4,6 +4,7 @@ import 'package:campus_catalogue/models/item_model.dart';
 import 'package:campus_catalogue/models/order_model.dart';
 import 'package:campus_catalogue/models/shopModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class DatabaseService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
@@ -12,25 +13,15 @@ class DatabaseService {
   }
 
   addToCart(ItemModel employeeData) async {
+    _db
+        .collection("Buyer")
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .collection("cart_items")
+        .add(employeeData.toMap());
     await _db.collection("cart_items").add(employeeData.toMap());
   }
 
   addShop(ShopModel employeeData) async {
-    // List menu = employeeData.menu;
-    // employeeData.menu = [];
-    // for (int i = 0; i < menu.length; i++) {
-    //   menu[i].remove('unselected_categories');
-    //   if (menu[i].containsKey('id')) {
-    //     String id = menu[i]['id'];
-    //     employeeData.menu.add(id);
-    //     menu[i].remove('id');
-    //     await _db.collection('items').doc(id).set(menu[i]);
-    //   } else {
-    //     DocumentReference docref = await _db.collection('items').add(menu[i]);
-    //     employeeData.menu.add(docref.id);
-    //   }
-    // }
-    // String s = '';
     Set s = {};
 
     for (int i = 0; i < employeeData.menu.length; i++) {
@@ -69,8 +60,11 @@ class DatabaseService {
   }
 
   Future<List<ItemModel>> retrieveCart() async {
-    QuerySnapshot<Map<String, dynamic>> snapshot =
-        await _db.collection("cart_items").get();
+    QuerySnapshot<Map<String, dynamic>> snapshot = await _db
+        .collection("Buyer")
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .collection("cart_items")
+        .get();
     return snapshot.docs
         .map((docSnapshot) => ItemModel.fromDocumentSnapshot(docSnapshot))
         .toList();

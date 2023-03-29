@@ -389,8 +389,8 @@ class _SellerDetailsState extends State<SellerDetails> {
 }
 
 class SellerAdditional extends StatefulWidget {
-  String shopName;
-  String shopType;
+  final String shopName;
+  final String shopType;
   String location;
   String openingTime;
   String closingTime;
