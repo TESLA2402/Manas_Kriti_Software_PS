@@ -34,6 +34,9 @@ flutter build apk --release
 - Looking at the feasibility of the problem, most of the people use mobile apps over websites for food ordering apps
 - We chose dart/flutter over Kotlin as it is cross platform language/framework, so our app can have same codebase but can run over both iOS as well as android
 
+# Problem Statement
+Here is the [Problem Statement](https://drive.google.com/file/d/16wdqckUTX7sdWBdRMXl4wTQ4Va3z_PqZ/view?usp=sharing)
+
 # Database Design
 ![alt text](./campus_catalogue/assets/database_schema.jpeg)
 
