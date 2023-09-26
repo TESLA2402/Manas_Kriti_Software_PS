@@ -1,5 +1,3 @@
-import 'package:campus_catalogue/add_shop.dart';
-import 'package:campus_catalogue/constants/colors.dart';
 import 'package:campus_catalogue/constants/typography.dart';
 import 'package:campus_catalogue/screens/sign_in.dart';
 import 'package:flutter/material.dart';
@@ -25,12 +23,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             Text("Lazy morning or a busy day?",
                 style: AppTypography.textMd
                     .copyWith(fontSize: 20, fontWeight: FontWeight.w700)),
-
-                        
             const SizedBox(
               height: 4,
             ),
-
             Text(
                 "Want to avoid queue and experience a \nhustle-free ordering journey.",
                 textAlign: TextAlign.center,

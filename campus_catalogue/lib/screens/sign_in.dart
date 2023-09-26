@@ -13,7 +13,6 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
-  @override
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _countryCode = TextEditingController();
   Widget build(BuildContext context) {

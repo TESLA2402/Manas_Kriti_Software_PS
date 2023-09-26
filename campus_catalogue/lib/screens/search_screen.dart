@@ -116,7 +116,6 @@ class ShopCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String _status;
     // if (status) {
     //   _status = "Open";
     // } else {

@@ -1,8 +1,7 @@
-import 'package:campus_catalogue/models/shopModel.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:upi_india/upi_india.dart';
 
+// ignore: must_be_immutable
 class UpiScreen extends StatefulWidget {
   double amount;
   UpiScreen({Key? key, required this.amount}) : super(key: key);
