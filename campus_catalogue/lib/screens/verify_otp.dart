@@ -1,5 +1,4 @@
 import 'package:campus_catalogue/constants/typography.dart';
-import 'package:campus_catalogue/screens/home_screen.dart';
 import 'package:campus_catalogue/screens/sign_in.dart';
 import 'package:campus_catalogue/screens/userType_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';

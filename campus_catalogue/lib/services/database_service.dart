@@ -1,5 +1,4 @@
 import 'package:campus_catalogue/models/buyer_model.dart';
-import 'package:campus_catalogue/models/cart_model.dart';
 import 'package:campus_catalogue/models/item_model.dart';
 import 'package:campus_catalogue/models/order_model.dart';
 import 'package:campus_catalogue/models/shopModel.dart';

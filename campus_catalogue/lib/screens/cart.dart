@@ -1,11 +1,8 @@
 import 'package:campus_catalogue/constants/colors.dart';
 import 'package:campus_catalogue/constants/typography.dart';
-import 'package:campus_catalogue/models/cart_model.dart';
 import 'package:campus_catalogue/models/item_model.dart';
-import 'package:campus_catalogue/models/shopModel.dart';
 import 'package:campus_catalogue/services/database_service.dart';
 import 'package:campus_catalogue/upi_india.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:quantity_input/quantity_input.dart';
 
@@ -156,6 +153,7 @@ class _CartState extends State<Cart> {
   }
 }
 
+// ignore: must_be_immutable
 class ItemCard extends StatefulWidget {
   ItemModel item;
   ItemCard({Key? key, required this.item}) : super(key: key);

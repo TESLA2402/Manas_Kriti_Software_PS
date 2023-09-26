@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
@@ -58,7 +57,7 @@ class _PaymentGatewayState extends State<PaymentGateway> {
       await Stripe.instance.presentPaymentSheet().then((value) {
         showDialog(
             context: context,
-            builder: (_) => AlertDialog(
+            builder: (_) => const AlertDialog(
                   content: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -79,7 +78,7 @@ class _PaymentGatewayState extends State<PaymentGateway> {
       });
     } on StripeException catch (e) {
       print('Error is:---> $e');
-      AlertDialog(
+      const AlertDialog(
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [

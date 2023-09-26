@@ -1,14 +1,9 @@
 import 'dart:io';
-import 'dart:math';
-
 import 'package:campus_catalogue/constants/colors.dart';
 import 'package:campus_catalogue/constants/typography.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/src/rendering/box.dart';
 import 'package:flutter/services.dart';
-import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 
 List<String> all_categories = [];
@@ -64,6 +59,7 @@ class CategoryCard extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class ItemEditor extends StatefulWidget {
   Map<String, dynamic> item;
   Function delete_item;
@@ -94,6 +90,7 @@ class _ItemEditorState extends State<ItemEditor> {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     Widget x;
     if (sampleImage == null) {
       x = Image.network(
@@ -356,6 +353,7 @@ class _EditMenuState extends State<EditMenu> {
               width: MediaQuery.of(context).size.width,
               height: 30,
             ),
+            // ignore: unnecessary_null_comparison
             (widget.menu.isEmpty && widget.menu == null)
                 ? SizedBox(
                     child: Text(

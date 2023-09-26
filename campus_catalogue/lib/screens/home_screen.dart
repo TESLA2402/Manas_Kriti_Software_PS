@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:campus_catalogue/constants/colors.dart';
 import 'package:campus_catalogue/constants/typography.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class ShopHeader extends StatelessWidget {
   final String name;

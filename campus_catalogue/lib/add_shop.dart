@@ -1,13 +1,5 @@
-import 'dart:io';
-import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/src/rendering/box.dart';
-import 'package:flutter/services.dart';
-import 'package:image_picker/image_picker.dart';
-
 import 'package:campus_catalogue/add_item.dart';
 
 FirebaseFirestore db = FirebaseFirestore.instance;
@@ -50,6 +42,7 @@ Future<void> edit_shop_db(shop) async {
   }
 }
 
+// ignore: must_be_immutable
 class EditShop extends StatefulWidget {
   Map shop;
   EditShop({super.key, required this.shop});

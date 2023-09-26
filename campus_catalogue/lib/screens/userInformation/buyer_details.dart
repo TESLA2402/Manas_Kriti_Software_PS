@@ -1,7 +1,6 @@
 import 'package:campus_catalogue/constants/colors.dart';
 import 'package:campus_catalogue/constants/typography.dart';
 import 'package:campus_catalogue/models/buyer_model.dart';
-import 'package:campus_catalogue/models/cart_model.dart';
 import 'package:campus_catalogue/screens/home_screen.dart';
 import 'package:campus_catalogue/screens/sign_in.dart';
 import 'package:campus_catalogue/services/database_service.dart';
@@ -16,7 +15,6 @@ class BuyerDetails extends StatefulWidget {
 }
 
 class _BuyerDetailsState extends State<BuyerDetails> {
-  @override
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
@@ -135,6 +133,7 @@ class _BuyerDetailsState extends State<BuyerDetails> {
   }
 }
 
+// ignore: must_be_immutable
 class FieldsFormat extends StatefulWidget {
   String title;
   TextEditingController text;

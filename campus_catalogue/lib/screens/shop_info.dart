@@ -1,17 +1,9 @@
-import 'dart:collection';
-
 import 'package:campus_catalogue/constants/colors.dart';
 import 'package:campus_catalogue/constants/typography.dart';
 import 'package:campus_catalogue/models/item_model.dart';
 import 'package:campus_catalogue/services/database_service.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:campus_catalogue/models/shopModel.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/src/rendering/box.dart';
-import 'package:flutter/services.dart';
-import 'package:image_picker/image_picker.dart';
 
 class ItemCard extends StatelessWidget {
   final String name;
@@ -75,8 +67,6 @@ class ItemCard extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () async {
                     DatabaseService service = DatabaseService();
-                    final FirebaseAuth _auth = FirebaseAuth.instance;
-                    final User user = await _auth.currentUser!;
                     ItemModel item = ItemModel(
                         category: "xbks",
                         description: "hey",
@@ -93,7 +83,6 @@ class ItemCard extends StatelessWidget {
             ),
           )),
     );
-    ;
   }
 }
 

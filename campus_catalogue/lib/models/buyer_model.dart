@@ -1,5 +1,4 @@
 import 'package:campus_catalogue/models/cart_model.dart';
-import 'package:campus_catalogue/screens/cart.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Buyer {

@@ -5,12 +5,9 @@ import 'package:campus_catalogue/models/shopModel.dart';
 import 'package:campus_catalogue/screens/seller_home_screen.dart';
 import 'package:campus_catalogue/screens/userInformation/buyer_details.dart';
 import 'package:campus_catalogue/services/database_service.dart';
-import 'package:dropdown_button2/custom_dropdown_button2.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-import '../home_screen.dart';
 
 class SellerDetails extends StatefulWidget {
   SellerDetails({Key? key}) : super(key: key);
@@ -34,7 +31,6 @@ class _SellerDetailsState extends State<SellerDetails> {
     'Swimming Pool Area',
   ];
 
-  @override
   final TextEditingController _shopNameController = TextEditingController();
   final TextEditingController _openingTimeController = TextEditingController();
   final TextEditingController _closingTimeController = TextEditingController();
@@ -388,6 +384,7 @@ class _SellerDetailsState extends State<SellerDetails> {
   }
 }
 
+// ignore: must_be_immutable
 class SellerAdditional extends StatefulWidget {
   final String shopName;
   final String shopType;
@@ -409,7 +406,6 @@ class SellerAdditional extends StatefulWidget {
 
 class _SellerAdditionalState extends State<SellerAdditional> {
   List<dynamic> menu = [];
-  @override
   final TextEditingController _ownerNameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _alternatePhoneController =
