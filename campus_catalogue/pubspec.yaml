@@ -51,7 +51,7 @@ dependencies:
   quantity_input: ^1.0.2
 
 dependency_overrides:
-  flutter_stripe: "9.5.0+1"
+  stripe_android: "9.5.0+1"
   
 dev_dependencies:
   flutter_test:
