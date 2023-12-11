@@ -50,6 +50,9 @@ dependencies:
   dropdown_button2: ^1.9.2
   quantity_input: ^1.0.2
 
+dependency_overrides:
+  flutter_stripe: "9.5.0+1"
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
