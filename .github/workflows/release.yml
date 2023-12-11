@@ -14,6 +14,7 @@ jobs:
   
   build:
     name: Create Android Build
+    permissions: write-all
     runs-on: ubuntu-latest
     defaults:
       run:
