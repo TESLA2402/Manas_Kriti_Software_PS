@@ -41,7 +41,7 @@ dependencies:
   flutter_local_notifications: ^16.1.0
   flutter_stripe: ^9.5.0+1
   flutter_dotenv: ^5.1.0
-  http: ^1.1.0
+  http: ^1.1.2
   upi_india: ^3.0.1
   google_fonts: ^4.0.3
   image_picker: ^1.0.4
