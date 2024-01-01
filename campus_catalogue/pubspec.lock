@@ -117,10 +117,10 @@ packages:
     dependency: "direct main"
     description:
       name: dropdown_button2
-      sha256: b0fe8d49a030315e9eef6c7ac84ca964250155a6224d491c1365061bc974a9e1
+      sha256: "604b87283e251e0e4a0cb1d0fdfa91fd527702b06e80999c4054cecc603e10e7"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.9"
+    version: "1.9.4"
   fake_async:
     dependency: transitive
     description:
@@ -229,10 +229,10 @@ packages:
     dependency: "direct main"
     description:
       name: firebase_storage
-      sha256: cce3a43438d623cc0d661f4c378c586ce81707fc12ba198d27d1f79735bdb57f
+      sha256: "8126e80210c0841a5b8204590b40d6b9e87cded3d342a92833f484a564dcddb3"
       url: "https://pub.dev"
     source: hosted
-    version: "11.5.5"
+    version: "11.5.6"
   firebase_storage_platform_interface:
     dependency: transitive
     description:
