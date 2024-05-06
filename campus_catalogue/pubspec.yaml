@@ -44,7 +44,7 @@ dependencies:
   http: ^1.2.1
   upi_india: ^3.0.1
   google_fonts: ^6.2.1
-  image_picker: ^1.1.0
+  image_picker: ^1.1.1
   firebase_core: ^2.30.1
   pinput: ^4.0.0
   dropdown_button2: ^2.3.9
