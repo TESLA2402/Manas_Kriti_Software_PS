@@ -39,7 +39,7 @@ dependencies:
   firebase_auth: ^5.4.0
   cloud_firestore: ^5.6.1
   flutter_local_notifications: ^18.0.1
-  flutter_stripe: ^11.3.0
+  flutter_stripe: ^11.4.0
   flutter_dotenv: ^5.2.1
   http: ^1.2.2
   upi_india: ^3.0.1
