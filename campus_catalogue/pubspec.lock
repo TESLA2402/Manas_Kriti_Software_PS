@@ -314,10 +314,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_stripe
-      sha256: "04202b7655239ba8d988d4ab0439454ce2ea08891308574b7a10771599546358"
+      sha256: febc0ad31f26fb4c7710fd907519b1f7a15f02536f03c4879cb0f9c3ae032e6f
       url: "https://pub.dev"
     source: hosted
-    version: "12.0.0"
+    version: "12.0.2"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -665,10 +665,10 @@ packages:
     dependency: transitive
     description:
       name: stripe_ios
-      sha256: "85e4d921269ba1e0c909cc241cde3f249a18e48f4d724fc1f6c9252db880fc27"
+      sha256: "5b2d968515baf73073ec29d12b498620f186f375042ff7a74ccf215d2b4bf37d"
       url: "https://pub.dev"
     source: hosted
-    version: "12.0.0"
+    version: "12.0.1"
   stripe_platform_interface:
     dependency: transitive
     description:
