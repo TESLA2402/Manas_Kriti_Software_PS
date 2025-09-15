@@ -38,7 +38,7 @@ dependencies:
   firebase_storage: ^13.0.1
   firebase_auth: ^6.0.2
   cloud_firestore: ^6.0.1
-  flutter_local_notifications: ^19.4.1
+  flutter_local_notifications: ^19.4.2
   flutter_stripe: ^12.0.2
   flutter_dotenv: ^6.0.0
   http: ^1.5.0
