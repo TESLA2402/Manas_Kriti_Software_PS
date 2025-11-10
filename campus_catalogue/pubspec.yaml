@@ -37,7 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   firebase_storage: ^13.0.4
   firebase_auth: ^6.1.2
-  cloud_firestore: ^6.0.3
+  cloud_firestore: ^6.1.0
   flutter_local_notifications: ^19.5.0
   flutter_stripe: ^12.1.0
   flutter_dotenv: ^6.0.0
