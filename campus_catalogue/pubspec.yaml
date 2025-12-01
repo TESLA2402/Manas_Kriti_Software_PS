@@ -46,7 +46,7 @@ dependencies:
   google_fonts: ^6.3.2
   image_picker: ^1.2.1
   firebase_core: ^4.2.1
-  pinput: ^6.0.0
+  pinput: ^6.0.1
   dropdown_button2: ^2.3.9
   quantity_input: ^1.0.2
 
