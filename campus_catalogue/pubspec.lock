@@ -580,10 +580,10 @@ packages:
     dependency: "direct main"
     description:
       name: pinput
-      sha256: bffcad45f97e372660ed512f5d87fb3253d54ae9f79e5e8085854e28f15aae5d
+      sha256: "692e1c29703abefad6c502e97b4d946d506384397438ea242afadbfe48354819"
       url: "https://pub.dev"
     source: hosted
-    version: "6.0.0"
+    version: "6.0.1"
   platform:
     dependency: transitive
     description:
