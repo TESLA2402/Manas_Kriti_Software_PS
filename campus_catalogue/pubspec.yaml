@@ -40,7 +40,7 @@ dependencies:
   cloud_firestore: ^6.3.0
   flutter_local_notifications: ^21.0.0
   flutter_stripe: ^12.6.0
-  flutter_dotenv: ^6.0.0
+  flutter_dotenv: ^6.0.1
   http: ^1.6.0
   upi_india: ^3.0.1
   google_fonts: ^8.0.2
