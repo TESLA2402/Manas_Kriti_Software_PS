@@ -43,7 +43,7 @@ dependencies:
   flutter_dotenv: ^6.0.1
   http: ^1.6.0
   upi_india: ^3.0.1
-  google_fonts: ^8.2.0
+  google_fonts: ^8.2.1
   image_picker: ^1.2.3
   firebase_core: ^4.13.0
   pinput: ^6.0.2
